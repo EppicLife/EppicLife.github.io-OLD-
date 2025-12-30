@@ -990,15 +990,7 @@
         });
       }
 
-      // Simple fake weather placeholders for now
-      document.getElementById("weather-temp").textContent = "32°";
-      document.getElementById("weather-condition").textContent = "Clear, crisp, mountain air";
-      document.getElementById("weather-wind").textContent = "5 mph N";
-      document.getElementById("weather-feels").textContent = "28°";
-      document.getElementById("weather-sunrise").textContent = "7:45 AM";
-      document.getElementById("weather-sunset").textContent = "4:25 PM";
-      document.getElementById("fire-danger").textContent = "Fire danger: Low • Winter lull";
-    });
+
     /* ------------------------------
    POSTING COACH ENGINE
    Algorithmic posting days + timing
@@ -1044,8 +1036,67 @@ function getPostingSuggestion() {
 
 // Run on page load
 getPostingSuggestion();
+    <script>
+// ------------------------------
+// WEATHER PANEL ENGINE
+// Ellensburg <-> Clearwater
+// ------------------------------
+
+const API_KEY = "61d2707f92567484d2ce96ac93348f87";
+
+// Coordinates for both cities
+const cities = {
+  ellensburg: { name: "Ellensburg Weather", lat: 46.9965, lon: -120.5478 },
+  clearwater: { name: "Clearwater Weather", lat: 27.9659, lon: -82.8001 }
+};
+
+let currentCity = "ellensburg";
+
+// Fetch weather from OpenWeather
+async function fetchWeather(cityKey) {
+  const { lat, lon } = cities[cityKey];
+
+  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=imperial`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    updateWeatherPanel(cityKey, data);
+  } catch (error) {
+    console.error("Weather fetch error:", error);
+  }
+}
+
+// Update the panel with real data
+function updateWeatherPanel(cityKey, data) {
+  document.getElementById("weather-title").textContent = cities[cityKey].name;
+  document.getElementById("temp").textContent = `${Math.round(data.main.temp)}°`;
+  document.getElementById("conditions").textContent = data.weather[0].description;
+  document.getElementById("wind").textContent = `Wind: ${Math.round(data.wind.speed)} mph`;
+  document.getElementById("sun").textContent =
+    `Sunrise: ${new Date(data.sys.sunrise * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} • ` +
+    `Sunset: ${new Date(data.sys.sunset * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
+}
+
+// Flip between cities
+document.getElementById("switch-city-btn").addEventListener("click", () => {
+  currentCity = currentCity === "ellensburg" ? "clearwater" : "ellensburg";
+
+  // Update button text
+  document.getElementById("switch-city-btn").textContent =
+    currentCity === "ellensburg" ? "Clearwater" : "Ellensburg";
+
+  // Fetch new city weather
+  fetchWeather(currentCity);
+});
+
+// Load Ellensburg by default
+fetchWeather("ellensburg");
+</script>
   </script>
 </body>
 </html>
+
 
 
