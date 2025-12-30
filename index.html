@@ -308,6 +308,42 @@
         0 0 28px rgba(255,106,0,0.9);
       border-color: rgba(255,255,255,0.35);
     }
+/* Posting Coach Panel */
+.posting-coach {
+  width: 100%;
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 18px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pc-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--text-main);
+  opacity: 0.85;
+  text-transform: uppercase;
+}
+
+.pc-message {
+  font-size: 1rem;
+  color: var(--text-main);
+  opacity: 0.9;
+  line-height: 1.4;
+}
+
+.pc-timing {
+  font-size: 0.85rem;
+  color: rgba(220, 220, 220, 0.6);
+  margin-top: 4px;
+}
 
     /* Left panel contents */
     .panel-section {
@@ -604,6 +640,12 @@
           <span class="dot"></span>
           Enter EppicLife Journal
         </button>
+        <!-- Posting Coach Panel -->
+<div class="posting-coach" id="posting-coach">
+  <div class="pc-title">TODAY’S POSTING SUGGESTION</div>
+  <div class="pc-message" id="pc-message">Loading...</div>
+  <div class="pc-timing" id="pc-timing"></div>
+</div>
       </div>
     </main>
 
@@ -957,7 +999,53 @@
       document.getElementById("weather-sunset").textContent = "4:25 PM";
       document.getElementById("fire-danger").textContent = "Fire danger: Low • Winter lull";
     });
+    /* ------------------------------
+   POSTING COACH ENGINE
+   Algorithmic posting days + timing
+-----------------------------------*/
+
+function getPostingSuggestion() {
+  const coachMessage = document.getElementById("pc-message");
+  const coachTiming = document.getElementById("pc-timing");
+
+  const now = new Date();
+  const day = now.getDay(); // 0=Sun, 1=Mon, 2=Tue, 3=Wed, 4=Thu, 5=Fri, 6=Sat
+
+  // Algorithmic posting schedule
+  const schedule = {
+    1: { // Monday
+      message: "Share a practical resource today — something that helps veterans navigate housing, benefits, or medical systems. Keep it simple and steady.",
+      timing: "Best time to post: 9 AM – 12 PM"
+    },
+    3: { // Wednesday
+      message: "Offer a grounding skill or stress‑management tool. Keep it veteran‑friendly and civilian‑accessible. Someone needs this today.",
+      timing: "Best time to post: 11 AM – 2 PM"
+    },
+    5: { // Friday
+      message: "Spotlight a local group, event, or resource in one of your five counties. Connection builds safety.",
+      timing: "Best time to post: 10 AM – 1 PM"
+    },
+    0: { // Sunday
+      message: "Share a reflection about purpose, resilience, or community. Keep it hopeful and grounded.",
+      timing: "Best time to post: 8 AM – 11 AM"
+    }
+  };
+
+  // If today is a posting day
+  if (schedule[day]) {
+    coachMessage.textContent = schedule[day].message;
+    coachTiming.textContent = schedule[day].timing;
+  } else {
+    // Non‑posting days
+    coachMessage.textContent = "No post needed today. Focus on your real‑world work.";
+    coachTiming.textContent = "Next high‑impact posting day: Monday, Wednesday, Friday, or Sunday.";
+  }
+}
+
+// Run on page load
+getPostingSuggestion();
   </script>
 </body>
 </html>
+
 
