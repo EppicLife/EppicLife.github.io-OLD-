@@ -521,6 +521,29 @@
         max-width: 100%;
       }
     }
+    .weather-box {
+    padding: 20px;
+    background: #111;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    position: relative;
+    text-align: center;
+}
+
+.switch-btn {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background: #222;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.switch-btn:hover {
+    background: #333;
+}
   </style>
 </head>
 <body>
@@ -530,52 +553,18 @@
   <div class="page">
 
     <!-- LEFT: Wilderness Panel -->
-    <aside class="left-panel">
-      <div class="panel-section">
-        <div class="section-title">
-          WEATHER <span> • ELLENSBURG</span>
-        </div>
-        <div class="weather-main">
-          <div class="weather-temp" id="weather-temp">--°</div>
-          <div class="weather-meta" id="weather-condition">Loading sky...</div>
-        </div>
-        <div class="weather-grid">
-          <div>
-            <div class="weather-label">Wind</div>
-            <div class="weather-value" id="weather-wind">-- mph</div>
-          </div>
-          <div>
-            <div class="weather-label">Feels like</div>
-            <div class="weather-value" id="weather-feels">--°</div>
-          </div>
-          <div>
-            <div class="weather-label">Sunrise</div>
-            <div class="weather-value" id="weather-sunrise">--:--</div>
-          </div>
-          <div>
-            <div class="weather-label">Sunset</div>
-            <div class="weather-value" id="weather-sunset">--:--</div>
-          </div>
-        </div>
-        <div class="moon-row">
-          <div class="moon-icon-left" id="moon-icon-left">○</div>
-          <div id="moon-phase-left">Moon phase loading…</div>
-        </div>
-      </div>
+   <div id="weather-panel" class="weather-box">
+    <h2 id="weather-title">Ellensburg Weather</h2>
 
-      <div class="panel-section">
-        <div class="section-title">
-          HUNTING <span> • PUBLIC LANDS</span>
-        </div>
-        <div class="badge">
-          <div class="badge-dot"></div>
-          <div id="fire-danger">Fire danger: —</div>
-        </div>
-        <div style="margin-top:8px;font-size:0.8rem;color:var(--text-muted);" id="hunting-note">
-          Season info and land updates can be linked in here later.
-        </div>
-      </div>
-    </aside>
+    <div id="weather-content">
+        <p id="temp">Loading...</p>
+        <p id="conditions"></p>
+        <p id="wind"></p>
+        <p id="sun"></p>
+    </div>
+
+    <button id="switch-city-btn" class="switch-btn">Clearwater</button>
+</div>
 
     <!-- CENTER: Search + Tagline + OneNote -->
     <main class="center-panel">
@@ -971,3 +960,4 @@
   </script>
 </body>
 </html>
+
