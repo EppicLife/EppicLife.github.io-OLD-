@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EppicLife Home Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- If you later host TT Livret Display as a webfont, wire it in here -->
+  <style>
+    :root {
+      --bg-black: #000000;
+      --bg-charcoal: #0a0a0a;
+      --bg-graphite: #1a1a1a;
+      --panel-dark: #141414;
+      --accent-orange: #ff6a00;
+      --accent-green: #1b5e20;
+      --accent-blue: #0a84ff;
+      --text-main: #f5f5f5;
+      --text-muted: #bbbbbb;
+      --glass: rgba(255, 255, 255, 0.08);
+      --glass-strong: rgba(255, 255, 255, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      background-color: var(--bg-black);
+      color: var(--text-main);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Background image */
+    .background {
+      position: fixed;
+      inset: 0;
+      background-image: url("https://source.unsplash.com/random/1920x1080/?sports");
+      background-size: cover;
+      background-position: center center;
+      filter: brightness(0.35);
+      z-index: -2;
+    }
+
+    .background-overlay {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(255,255,255,0.08), transparent 60%),
+                  radial-gradient(circle at bottom, rgba(0,0,0,0.8), transparent 60%);
+      z-index: -1;
+    }
+
+    /* Layout skeleton */
+    .page {
+      display: grid;
+      grid-template-columns: minmax(230px, 260px) minmax(0, 1fr) minmax(320px, 380px);
+      grid-template-rows: 1fr auto;
+      height: 100vh;
+      padding: 18px 22px 10px 22px;
+      gap: 14px;
+    }
+
+    .left-panel {
+      grid-row: 1 / 2;
+      grid-column: 1 / 2;
+      background: linear-gradient(145deg, rgba(20, 20, 20, 0.95), rgba(12, 20, 14, 0.96));
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(18px);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .center-panel {
+      grid-row: 1 / 2;
+      grid-column: 2 / 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 20px;
+      text-align: center;
+    }
+
+    .right-panel {
+      grid-row: 1 / 2;
+      grid-column: 3 / 4;
+      background: radial-gradient(circle at top, rgba(10, 132, 255, 0.18), transparent 60%),
+                  rgba(8, 8, 12, 0.96);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 0 45px rgba(0, 0, 0, 0.9);
+      backdrop-filter: blur(20px);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      overflow-y: auto;
+    }
+
+    .footer {
+      grid-row: 2 / 3;
+      grid-column: 1 / 4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 6px 2px 6px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-shadow: 0 0 6px rgba(0,0,0,0.9);
+    }
+
+    .footer-quote {
+      font-family: "TT Livret Display", "Georgia", "Times New Roman", serif;
+      font-size: 0.9rem;
+      color: var(--text-main);
+      max-width: 60%;
+      position: relative;
+    }
+
+    .footer-quote::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 90px;
+      height: 1px;
+      background: linear-gradient(90deg, var(--accent-orange), transparent);
+      opacity: 0.8;
+    }
+
+    .footer-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "TT Livret Display", "Georgia", serif;
+    }
+
+    .moon-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.6);
+      box-shadow: 0 0 12px rgba(27, 94, 32, 0.6);
+      border: 1px solid rgba(27, 94, 32, 0.7);
+      font-size: 0.8rem;
+    }
+
+    .moon-icon {
+      font-size: 0.9rem;
+    }
+
+    /* Center: search, tagline, OneNote */
+    .search-shell {
+      max-width: 620px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .logo-text {
+      font-family: "TT Livret Display", "Georgia", "Times New Roman", serif;
+      font-size: 2rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-main);
+      text-shadow: 0 0 18px rgba(0, 0, 0, 0.9);
+      opacity: 0.85;
+    }
+
+    .search-bar-wrapper {
+      width: 100%;
+      padding: 2px;
+      border-radius: 999px;
+      background: radial-gradient(circle at top left, rgba(255,255,255,0.2), transparent 50%),
+                  radial-gradient(circle at bottom right, rgba(10,132,255,0.4), transparent 60%);
+      box-shadow: 0 0 30px rgba(0, 0, 0, 1);
+    }
+
+    .search-bar {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: linear-gradient(145deg, rgba(0, 0, 0, 0.86), rgba(40, 40, 40, 0.85));
+      backdrop-filter: blur(16px);
+      box-shadow:
+        0 0 18px rgba(0,0,0,1),
+        inset 0 0 12px rgba(255,255,255,0.06);
+      gap: 10px;
+    }
+
+    .search-icon {
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 2px solid rgba(245,245,245,0.9);
+      position: relative;
+      opacity: 0.9;
+    }
+
+    .search-icon::after {
+      content: "";
+      position: absolute;
+      right: -7px;
+      bottom: -5px;
+      width: 9px;
+      height: 2px;
+      border-radius: 999px;
+      background: rgba(245,245,245,0.9);
+      transform: rotate(40deg);
+    }
+
+    .search-input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-main);
+      font-size: 1.05rem;
+      font-weight: 400;
+    }
+
+    .search-input::placeholder {
+      color: rgba(220,220,220,0.6);
+    }
+
+    .search-engine-label {
+      font-size: 0.75rem;
+      color: rgba(220,220,220,0.55);
+      margin-top: 2px;
+    }
+
+    .tagline {
+      font-family: "TT Livret Display", "Georgia", "Times New Roman", serif;
+      font-size: 1.1rem;
+      max-width: 520px;
+      color: var(--text-main);
+      text-shadow: 0 0 14px rgba(0,0,0,1);
+      position: relative;
+    }
+
+    .tagline::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -6px;
+      width: 110px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent-orange), transparent);
+      opacity: 0.9;
+    }
+
+    .onenote-button {
+      margin-top: 18px;
+      padding: 9px 26px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: radial-gradient(circle at top, rgba(255,255,255,0.1), transparent 60%),
+                  linear-gradient(145deg, rgba(10, 10, 10, 0.95), rgba(30,30,30,0.95));
+      color: var(--text-main);
+      font-family: "TT Livret Display", "Georgia", serif;
+      font-size: 0.95rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow:
+        0 0 20px rgba(0,0,0,1),
+        0 0 20px rgba(255,106,0,0.5);
+      text-shadow: 0 0 8px rgba(0,0,0,0.9);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    }
+
+    .onenote-button span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: radial-gradient(circle at center, var(--accent-orange), rgba(255, 255, 255, 0));
+      box-shadow: 0 0 8px rgba(255,106,0,0.9);
+    }
+
+    .onenote-button:hover {
+      transform: translateY(-1px);
+      box-shadow:
+        0 0 26px rgba(0,0,0,1),
+        0 0 28px rgba(255,106,0,0.9);
+      border-color: rgba(255,255,255,0.35);
+    }
+
+    /* Left panel contents */
+    .panel-section {
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 10px;
+    }
+
+    .panel-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .section-title {
+      font-family: "TT Livret Display", "Georgia", "Times New Roman", serif;
+      font-size: 0.9rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(230,230,230,0.9);
+      margin-bottom: 10px;
+    }
+
+    .section-title span {
+      color: var(--accent-green);
+    }
+
+    .weather-main {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .weather-temp {
+      font-size: 1.8rem;
+      font-weight: 500;
+    }
+
+    .weather-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .weather-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+      margin-top: 8px;
+      font-size: 0.78rem;
+    }
+
+    .weather-label {
+      color: var(--text-muted);
+    }
+
+    .weather-value {
+      color: var(--text-main);
+    }
+
+    .moon-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+      font-size: 0.8rem;
+    }
+
+    .moon-icon-left {
+      font-size: 1.1rem;
+      text-shadow: 0 0 14px rgba(27,94,32,0.9);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.78rem;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.6);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text-muted);
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--accent-orange);
+      box-shadow: 0 0 9px rgba(255,106,0,0.9);
+    }
+
+    /* Right panel sports */
+    .sports-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 4px;
+    }
+
+    .sports-title {
+      font-family: "TT Livret Display", "Georgia", serif;
+      font-size: 0.92rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(230,230,230,0.95);
+    }
+
+    .sports-pill {
+      font-size: 0.7rem;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(10,132,255,0.12);
+      border: 1px solid rgba(10,132,255,0.5);
+      color: rgba(190,210,255,0.95);
+    }
+
+    .sports-block {
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.04);
+      margin-bottom: 8px;
+      box-shadow: 0 0 16px rgba(0,0,0,0.8);
+    }
+
+    .sports-block.live {
+      border-color: rgba(255,106,0,0.7);
+      box-shadow:
+        0 0 16px rgba(0,0,0,0.9),
+        0 0 18px rgba(255,106,0,0.7);
+    }
+
+    .sports-block.upcoming {
+      border-color: rgba(27,94,32,0.6);
+      box-shadow:
+        0 0 16px rgba(0,0,0,0.9),
+        0 0 18px rgba(27,94,32,0.5);
+    }
+
+    .sports-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.82rem;
+    }
+
+    .sports-team {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sports-team-name {
+      font-weight: 500;
+    }
+
+    .sports-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    .sports-score {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .sports-meta {
+      margin-top: 5px;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .sports-tag {
+      font-size: 0.72rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    /* Responsive */
+    @media (max-width: 960px) {
+      .page {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto auto auto;
+        overflow-y: auto;
+      }
+      .left-panel,
+      .center-panel,
+      .right-panel {
+        grid-column: 1 / 2;
+      }
+      .left-panel {
+        order: 2;
+      }
+      .center-panel {
+        order: 1;
+        padding-top: 35px;
+      }
+      .right-panel {
+        order: 3;
+      }
+      .footer {
+        order: 4;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .footer-quote {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="background"></div>
+  <div class="background-overlay"></div>
+
+  <div class="page">
+
+    <!-- LEFT: Wilderness Panel -->
+    <aside class="left-panel">
+      <div class="panel-section">
+        <div class="section-title">
+          WEATHER <span> • ELLENSBURG</span>
+        </div>
+        <div class="weather-main">
+          <div class="weather-temp" id="weather-temp">--°</div>
+          <div class="weather-meta" id="weather-condition">Loading sky...</div>
+        </div>
+        <div class="weather-grid">
+          <div>
+            <div class="weather-label">Wind</div>
+            <div class="weather-value" id="weather-wind">-- mph</div>
+          </div>
+          <div>
+            <div class="weather-label">Feels like</div>
+            <div class="weather-value" id="weather-feels">--°</div>
+          </div>
+          <div>
+            <div class="weather-label">Sunrise</div>
+            <div class="weather-value" id="weather-sunrise">--:--</div>
+          </div>
+          <div>
+            <div class="weather-label">Sunset</div>
+            <div class="weather-value" id="weather-sunset">--:--</div>
+          </div>
+        </div>
+        <div class="moon-row">
+          <div class="moon-icon-left" id="moon-icon-left">○</div>
+          <div id="moon-phase-left">Moon phase loading…</div>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="section-title">
+          HUNTING <span> • PUBLIC LANDS</span>
+        </div>
+        <div class="badge">
+          <div class="badge-dot"></div>
+          <div id="fire-danger">Fire danger: —</div>
+        </div>
+        <div style="margin-top:8px;font-size:0.8rem;color:var(--text-muted);" id="hunting-note">
+          Season info and land updates can be linked in here later.
+        </div>
+      </div>
+    </aside>
+
+    <!-- CENTER: Search + Tagline + OneNote -->
+    <main class="center-panel">
+      <div class="search-shell">
+        <div class="logo-text">EPPICLIFE</div>
+
+        <form
+          class="search-bar-wrapper"
+          action="https://www.google.com/search"
+          method="GET"
+          target="_blank"
+        >
+          <div class="search-bar">
+            <div class="search-icon"></div>
+            <input
+              class="search-input"
+              type="text"
+              name="q"
+              placeholder="Hunt down what you need..."
+              autocomplete="off"
+            />
+          </div>
+          <div class="search-engine-label">
+            Powered by Google • Cinematic dark mode • True to the blue
+          </div>
+        </form>
+
+        <div class="tagline" id="tagline">
+          EppicLife — Built on truth, carried by grit.
+        </div>
+
+        <button
+          class="onenote-button"
+          id="onenote-button"
+          type="button"
+        >
+          <span class="dot"></span>
+          Enter EppicLife Journal
+        </button>
+      </div>
+    </main>
+
+    <!-- RIGHT: Sports HUD -->
+    <aside class="right-panel">
+      <div class="sports-header">
+        <div class="sports-title">EPPIC SIDE OUT</div>
+        <div class="sports-pill">SEATTLE FIRST • TOTT NEXT</div>
+      </div>
+
+      <!-- LIVE NOW (stubbed demo data for now) -->
+      <div class="panel-section">
+        <div class="section-title">LIVE <span>NOW</span></div>
+
+        <!-- Example Seattle live block -->
+        <div class="sports-block live">
+          <div class="sports-row">
+            <div class="sports-team">
+              <div class="sports-team-name">Seattle Seahawks</div>
+              <div class="sports-sub">vs 49ers • Q3</div>
+            </div>
+            <div class="sports-score">17 — 20</div>
+          </div>
+          <div class="sports-meta">
+            <div>NFL • True to the blue</div>
+            <div class="sports-tag">Lumen Field</div>
+          </div>
+        </div>
+
+        <!-- Example Kraken live block -->
+        <div class="sports-block live">
+          <div class="sports-row">
+            <div class="sports-team">
+              <div class="sports-team-name">Seattle Kraken</div>
+              <div class="sports-sub">@ Canucks • 2nd</div>
+            </div>
+            <div class="sports-score">2 — 1</div>
+          </div>
+          <div class="sports-meta">
+            <div>NHL • Release the deep</div>
+            <div class="sports-tag">Rogers Arena</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- UPCOMING SEATTLE -->
+      <div class="panel-section">
+        <div class="section-title">UPCOMING <span> • SEATTLE</span></div>
+
+        <div class="sports-block upcoming">
+          <div class="sports-row">
+            <div class="sports-team">
+              <div class="sports-team-name">Seattle Mariners</div>
+              <div class="sports-sub">vs Astros • 7:10 PM</div>
+            </div>
+            <div class="sports-score">0 — 0</div>
+          </div>
+          <div class="sports-meta">
+            <div>MLB • Late-night heartbreak optional</div>
+            <div class="sports-tag">T-Mobile Park</div>
+          </div>
+        </div>
+
+        <div class="sports-block upcoming">
+          <div class="sports-row">
+            <div class="sports-team">
+              <div class="sports-team-name">Seattle Seawolves</div>
+              <div class="sports-sub">vs Legion • Sat</div>
+            </div>
+            <div class="sports-score">Kickoff</div>
+          </div>
+          <div class="sports-meta">
+            <div>MLR • Pack the scrum</div>
+            <div class="sports-tag">Starfire Stadium</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOTTENHAM + FOREST + PALACE -->
+      <div class="panel-section">
+        <div class="section-title">PREMIER LEAGUE <span> • CORE</span></div>
+
+        <div class="sports-block upcoming">
+          <div class="sports-row">
+            <div class="sports-team">
+              <div class="sports-team-name" style="color:var(--accent-blue);">
+                Tottenham Hotspur
+              </div>
+              <div class="sports-sub">vs Arsenal • Sun</div>
+            </div>
+            <div class="sports-score">Kickoff</div>
+          </div>
+          <div class="sports-meta">
+            <div>Chaos derby • True to the vibes</div>
+            <div class="sports-tag">N17 • Home</div>
+          </div>
+        </div>
+
+        <div class="sports-block">
+          <div class="sports-row">
+            <div class="sports-team">
+              <div class="sports-team-name" style="color:#c62828;">
+                Nottingham Forest
+              </div>
+              <div class="sports-sub">@ Wolves • Sat</div>
+            </div>
+            <div class="sports-score">Kickoff</div>
+          </div>
+          <div class="sports-meta">
+            <div>Historic underdogs</div>
+            <div class="sports-tag">Premier League</div>
+          </div>
+        </div>
+
+        <div class="sports-block">
+          <div class="sports-row">
+            <div class="sports-team">
+              <div class="sports-team-name" style="color:#e53935;">
+                Crystal Palace
+              </div>
+              <div class="sports-sub">vs Brighton • Mon</div>
+            </div>
+            <div class="sports-score">Kickoff</div>
+          </div>
+          <div class="sports-meta">
+            <div>South London noise</div>
+            <div class="sports-tag">Premier League</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- OTHER PRIORITY SPORTS (stub section) -->
+      <div class="panel-section">
+        <div class="section-title">OTHER <span>PRIORITY</span></div>
+
+        <div class="sports-block">
+          <div class="sports-row">
+            <div class="sports-team">
+              <div class="sports-team-name">Leinster</div>
+              <div class="sports-sub">vs Munster • Sat</div>
+            </div>
+            <div class="sports-score">Kickoff</div>
+          </div>
+          <div class="sports-meta">
+            <div>URC • Blue giants</div>
+            <div class="sports-tag">Rugby</div>
+          </div>
+        </div>
+
+        <div class="sports-block">
+          <div class="sports-row">
+            <div class="sports-team">
+              <div class="sports-team-name">UFC 300</div>
+              <div class="sports-sub">Main card • 7:00 PM</div>
+            </div>
+            <div class="sports-score">Fight Night</div>
+          </div>
+          <div class="sports-meta">
+            <div>Only the violence you choose</div>
+            <div class="sports-tag">MMA</div>
+          </div>
+        </div>
+
+        <div class="sports-block">
+          <div class="sports-row">
+            <div class="sports-team">
+              <div class="sports-team-name">Anthony Joshua vs TBD</div>
+              <div class="sports-sub">Next bout • TBA</div>
+            </div>
+            <div class="sports-score">Card</div>
+          </div>
+          <div class="sports-meta">
+            <div>Heavyweight storylines</div>
+            <div class="sports-tag">Boxing</div>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <div class="footer-quote" id="footer-quote">
+        “There are some who can live without wild things and some who cannot.” — Aldo Leopold
+      </div>
+      <div class="footer-meta">
+        <div class="moon-pill">
+          <span class="moon-icon" id="moon-icon-footer">○</span>
+          <span id="moon-phase-footer">Moon phase loading…</span>
+        </div>
+        <div id="footer-datetime">—</div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // === ROTATING TAGLINES ===
+    const taglines = [
+      "EppicLife — From mud, from ash, from truth.",
+      "EppicLife — Built from the wreckage, rising anyway.",
+      "EppicLife — Forged in the quiet, proven in the storm.",
+      "EppicLife — Born twice: once by chance, once by choice.",
+      "EppicLife — Rise. Fall. Rise better.",
+      "EppicLife — The man rebuilt from the fire.",
+      "EppicLife — No masks. No excuses. Just the work.",
+      "EppicLife — Honest bones. Hard miles. Open heart.",
+      "EppicLife — Built on truth, carried by grit.",
+      "EppicLife — Strong enough to break, brave enough to rebuild.",
+      "EppicLife — The courage to be real.",
+      "EppicLife — Fight forward.",
+      "EppicLife — The comeback is the story.",
+      "EppicLife — Hit the ground. Stand again.",
+      "EppicLife — The man who refuses to stay down.",
+      "EppicLife — Every scar earned. Every step chosen.",
+      "EppicLife — Built by wind, sharpened by mountains.",
+      "EppicLife — Where the wild makes the man.",
+      "EppicLife — Strong as the land that raised me.",
+      "EppicLife — Walk the ridge. Face the truth.",
+      "EppicLife — A life carved from public lands and hard lessons.",
+      "EppicLife — Becoming the man I was meant to be.",
+      "EppicLife — A life lived awake.",
+      "EppicLife — Spirit-led. Grit-built. Truth-driven.",
+      "EppicLife — The journey inward is the real hunt.",
+      "EppicLife — Becoming is the bravest thing a man can do.",
+      "EppicLife — Rise anyway.",
+      "EppicLife — Built, not born.",
+      "EppicLife — Earned. Every day.",
+      "EppicLife — Rise. Hunt. Become.",
+      "EppicLife — Strong. Still. Becoming."
+    ];
+
+    function chooseTagline() {
+      const el = document.getElementById("tagline");
+      if (!el) return;
+      const choice = taglines[Math.floor(Math.random() * taglines.length)];
+      el.textContent = choice;
+    }
+
+    // === ROTATING WILDERNESS QUOTES ===
+    const quotes = [
+      "“There are some who can live without wild things and some who cannot.” — Aldo Leopold",
+      "“In wildness is the preservation of the world.” — Henry David Thoreau",
+      "“The mountains are calling and I must go.” — John Muir",
+      "“Wilderness is not a luxury but a necessity of the human spirit.” — Edward Abbey",
+      "“The clearest way into the Universe is through a forest wilderness.” — John Muir",
+      "“A man is whole only when he takes into account his shadow.” — Carl Jung",
+      "“Not all who wander are lost.” — J.R.R. Tolkien"
+    ];
+
+    function chooseQuote() {
+      const el = document.getElementById("footer-quote");
+      if (!el) return;
+      const choice = quotes[Math.floor(Math.random() * quotes.length)];
+      el.textContent = choice;
+    }
+
+    // === DATE/TIME + MOON PHASE (approx) ===
+    function updateDateTime() {
+      const el = document.getElementById("footer-datetime");
+      if (!el) return;
+      const now = new Date();
+      const options = {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit"
+      };
+      el.textContent = now.toLocaleString(undefined, options);
+    }
+
+    // Simple moon phase approximation
+    function getMoonPhaseInfo(date) {
+      // Reference: known new moon (Jan 6 2000 18:14 UTC approx)
+      const synodicMonth = 29.53058867;
+      const knownNewMoon = Date.UTC(2000, 0, 6, 18, 14);
+      const now = date.getTime();
+      const daysSince = (now - knownNewMoon) / (1000 * 60 * 60 * 24);
+      const phase = ((daysSince % synodicMonth) + synodicMonth) % synodicMonth;
+      const index = Math.floor((phase / synodicMonth) * 8);
+
+      const names = [
+        "New Moon",
+        "Waxing Crescent",
+        "First Quarter",
+        "Waxing Gibbous",
+        "Full Moon",
+        "Waning Gibbous",
+        "Last Quarter",
+        "Waning Crescent"
+      ];
+
+      const icons = [
+        "●", // New
+        "◔",
+        "◑",
+        "◕",
+        "○", // Full
+        "◕",
+        "◑",
+        "◔"
+      ];
+
+      return {
+        name: names[index],
+        icon: icons[index]
+      };
+    }
+
+    function applyMoonPhase() {
+      const now = new Date();
+      const info = getMoonPhaseInfo(now);
+
+      const leftIcon = document.getElementById("moon-icon-left");
+      const leftText = document.getElementById("moon-phase-left");
+      const footerIcon = document.getElementById("moon-icon-footer");
+      const footerText = document.getElementById("moon-phase-footer");
+
+      if (leftIcon) leftIcon.textContent = info.icon;
+      if (leftText) leftText.textContent = info.name;
+      if (footerIcon) footerIcon.textContent = info.icon;
+      if (footerText) footerText.textContent = info.name;
+    }
+
+    // === ONENOTE BUTTON ===
+    document.addEventListener("DOMContentLoaded", () => {
+      chooseTagline();
+      chooseQuote();
+      updateDateTime();
+      applyMoonPhase();
+
+      // Update time every minute
+      setInterval(updateDateTime, 60000);
+
+      const onenoteButton = document.getElementById("onenote-button");
+      if (onenoteButton) {
+        onenoteButton.addEventListener("click", () => {
+          // TODO: paste your real OneNote link here
+          const oneNoteUrl = "https://www.onenote.com/"; // replace with your life system URL
+          window.open(oneNoteUrl, "_blank");
+        });
+      }
+
+      // Simple fake weather placeholders for now
+      document.getElementById("weather-temp").textContent = "32°";
+      document.getElementById("weather-condition").textContent = "Clear, crisp, mountain air";
+      document.getElementById("weather-wind").textContent = "5 mph N";
+      document.getElementById("weather-feels").textContent = "28°";
+      document.getElementById("weather-sunrise").textContent = "7:45 AM";
+      document.getElementById("weather-sunset").textContent = "4:25 PM";
+      document.getElementById("fire-danger").textContent = "Fire danger: Low • Winter lull";
+    });
+  </script>
+</body>
+</html>
