@@ -102,6 +102,28 @@
   margin-bottom: 12px;
   opacity: 0.9;
 }
+  #footer-date,
+#footer-time {
+  font-family: "TT Livret Display", "Georgia", serif;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  opacity: 0.9;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+#weather-panel {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.deer-movement {
+  margin-bottom: 12px;
+}
+
+.moon-left {
+  margin-bottom: 6px;
+}
 
 /* LOWER WEATHER BLOCK */
 #weather-title {
@@ -726,7 +748,8 @@
 <aside class="left-panel">
   <div id="weather-panel" class="weather-box">
 
-    <div id="footer-datetime">—</div>
+  <div id="footer-date">—</div>
+  <div id="footer-time">—</div>
 
     <h2 id="weather-title">Ellensburg Weather</h2>
 
@@ -1062,18 +1085,24 @@
 
     // === DATE/TIME + MOON PHASE (approx) ===
     function updateDateTime() {
-      const el = document.getElementById("footer-datetime");
-      if (!el) return;
-      const now = new Date();
-      const options = {
-        weekday: "short",
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-        hour: "numeric",
-        minute: "2-digit"
-      };
-      el.textContent = now.toLocaleString(undefined, options);
+    const dateEl = document.getElementById("footer-date");
+    const timeEl = document.getElementById("footer-time");
+    if (!dateEl || !timeEl) return;
+
+    const now = new Date();
+    const dateOptions = {
+    weekday: "short",
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+    };
+    const timeOptions = {
+    hour: "numeric",
+    minute: "2-digit"
+    };
+
+    dateEl.textContent = now.toLocaleDateString(undefined, dateOptions);
+    timeEl.textContent = now.toLocaleTimeString(undefined, timeOptions);
     }
 
     // Simple moon phase approximation
@@ -1253,6 +1282,7 @@ fetchWeather("ellensburg");
 </script>
 </body>
 </html>
+
 
 
 
