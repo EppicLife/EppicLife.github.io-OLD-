@@ -83,6 +83,17 @@
       flex-direction: column;
       gap: 14px;
     }
+    
+.moon-left {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: "TT Livret Display", "Georgia", serif;
+  color: var(--text-main);
+}
 
     .center-panel {
   grid-row: 1 / 2;
@@ -657,6 +668,13 @@
     </div>
 
     <button id="switch-city-btn" class="switch-btn">Clearwater</button>
+    <div class="footer-meta">
+        <div class="moon-pill">
+          <span class="moon-icon" id="moon-icon-footer">○</span>
+          <span id="moon-phase-footer">Moon phase loading…</span>
+        </div>
+        <div id="footer-datetime">—</div>
+      </div>
 </div>
 </aside>
     
@@ -892,13 +910,6 @@
     <footer class="footer">
       <div class="footer-quote" id="footer-quote">
         “There are some who can live without wild things and some who cannot.” — Aldo Leopold
-      </div>
-      <div class="footer-meta">
-        <div class="moon-pill">
-          <span class="moon-icon" id="moon-icon-footer">○</span>
-          <span id="moon-phase-footer">Moon phase loading…</span>
-        </div>
-        <div id="footer-datetime">—</div>
       </div>
     </footer>
   </div>
@@ -1157,6 +1168,7 @@ fetchWeather("ellensburg");
 </script>
 </body>
 </html>
+
 
 
 
