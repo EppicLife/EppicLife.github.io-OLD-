@@ -102,7 +102,16 @@
   margin-bottom: 12px;
   opacity: 0.9;
 }
-  #footer-date,
+#footer-day {
+  font-family: "TT Livret Display", "Georgia", serif;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  opacity: 0.9;
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+#footer-date,
 #footer-time {
   font-family: "TT Livret Display", "Georgia", serif;
   font-size: 0.85rem;
@@ -748,10 +757,11 @@
 <aside class="left-panel">
 <div id="weather-panel" class="weather-box">
 
-  <div class="datetime-block">
-    <div id="footer-date">—</div>
-    <div id="footer-time">—</div>
-  </div>
+<div class="datetime-block">
+  <div id="footer-day">—</div>
+  <div id="footer-date">—</div>
+  <div id="footer-time">—</div>
+</div>
 
   <div class="weather-block">
     <h2 id="weather-title">Ellensburg Weather</h2>
@@ -1086,24 +1096,19 @@
 
     // === DATE/TIME + MOON PHASE (approx) ===
     function updateDateTime() {
-    const dateEl = document.getElementById("footer-date");
-    const timeEl = document.getElementById("footer-time");
-    if (!dateEl || !timeEl) return;
+    const dayEl = document.getElementById("footer-day");
+const dateEl = document.getElementById("footer-date");
+const timeEl = document.getElementById("footer-time");
+if (!dayEl || !dateEl || !timeEl) return;
 
-    const now = new Date();
-    const dateOptions = {
-    weekday: "short",
-    month: "short",
-    day: "numeric",
-    year: "numeric"
-    };
-    const timeOptions = {
-    hour: "numeric",
-    minute: "2-digit"
-    };
+const now = new Date();
+const dayOptions = { weekday: "long" };
+const dateOptions = { month: "short", day: "numeric", year: "numeric" };
+const timeOptions = { hour: "numeric", minute: "2-digit" };
 
-    dateEl.textContent = now.toLocaleDateString(undefined, dateOptions);
-    timeEl.textContent = now.toLocaleTimeString(undefined, timeOptions);
+dayEl.textContent = now.toLocaleDateString(undefined, dayOptions);
+dateEl.textContent = now.toLocaleDateString(undefined, dateOptions);
+timeEl.textContent = now.toLocaleTimeString(undefined, timeOptions);
     }
 
     // Simple moon phase approximation
@@ -1283,6 +1288,7 @@ fetchWeather("ellensburg");
 </script>
 </body>
 </html>
+
 
 
 
