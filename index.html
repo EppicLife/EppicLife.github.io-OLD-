@@ -94,6 +94,67 @@
   font-family: "TT Livret Display", "Georgia", serif;
   color: var(--text-main);
 }
+ /* DATE ABOVE WEATHER */
+#footer-datetime {
+  font-family: "TT Livret Display", "Georgia", serif;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  margin-bottom: 12px;
+  opacity: 0.9;
+}
+
+/* LOWER WEATHER BLOCK */
+#weather-title {
+  margin-top: 10px;
+}
+
+/* DEER MOVEMENT BLOCK */
+.deer-movement {
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.deer-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+}
+
+.deer-time {
+  color: var(--text-muted);
+}
+
+.deer-quality {
+  font-weight: 500;
+}
+
+.deer-great {
+  color: var(--accent-green);
+}
+
+.deer-good {
+  color: var(--accent-orange);
+}
+
+/* PUSH MOON BLOCK TO BOTTOM */
+.left-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.weather-box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.moon-left {
+  margin-top: auto;
+}
 
     .center-panel {
   grid-row: 1 / 2;
@@ -1192,6 +1253,7 @@ fetchWeather("ellensburg");
 </script>
 </body>
 </html>
+
 
 
 
