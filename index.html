@@ -164,6 +164,7 @@
         text-align: center;
   margin: 0 auto;
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.25);
+    padding-bottom: 1em;
     }
 
     .footer-quote::after {
@@ -581,21 +582,26 @@
         grid-template-rows: auto auto auto auto;
         overflow-y: auto;
       }
+      
       .left-panel,
       .center-panel,
       .right-panel {
         grid-column: 1 / 2;
       }
+      
       .left-panel {
         order: 2;
       }
+      
       .center-panel {
         order: 1;
         padding-top: 35px;
       }
+      
       .right-panel {
         order: 3;
       }
+      
       .footer {
         order: 4;
         flex-direction: column;
@@ -1169,6 +1175,7 @@ fetchWeather("ellensburg");
 </script>
 </body>
 </html>
+
 
 
 
