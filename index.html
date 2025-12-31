@@ -664,27 +664,44 @@
 <!-- LEFT: Wilderness Panel -->
 <aside class="left-panel">
   <div id="weather-panel" class="weather-box">
+
+    <div id="footer-datetime">—</div>
+
     <h2 id="weather-title">Ellensburg Weather</h2>
 
     <div id="weather-content">
-        <p id="temp">Loading...</p>
-        <p id="conditions"></p>
-        <p id="wind"></p>
-        <p id="sun"></p>
+      <p id="temp">Loading...</p>
+      <p id="conditions"></p>
+      <p id="wind"></p>
+      <p id="sun"></p>
     </div>
 
     <button id="switch-city-btn" class="switch-btn">Clearwater</button>
-    
-    <div class="moon-left">
-        <div class="moon-pill">
-          <span class="moon-icon" id="moon-icon-footer">○</span>
-          <span id="moon-phase-footer">Moon phase loading…</span>
-        </div>
-        <div id="footer-datetime">—</div>
+
+    <div class="deer-movement">
+      <div class="section-title">
+        Deer <span>Movement</span>
       </div>
-</div>
+      <div class="deer-row">
+        <span class="deer-time">5:00 AM</span>
+        <span class="deer-quality deer-great">Great</span>
+      </div>
+      <div class="deer-row">
+        <span class="deer-time">2:00 PM</span>
+        <span class="deer-quality deer-good">Good</span>
+      </div>
+    </div>
+
+    <div class="moon-left">
+      <div class="moon-pill">
+        <span class="moon-icon" id="moon-icon-footer">○</span>
+        <span id="moon-phase-footer">Moon phase loading…</span>
+      </div>
+    </div>
+
+  </div>
 </aside>
-    
+   
     <!-- CENTER: Search + Tagline + OneNote -->
     <main class="center-panel">
       <div class="search-shell">
@@ -1175,6 +1192,7 @@ fetchWeather("ellensburg");
 </script>
 </body>
 </html>
+
 
 
 
