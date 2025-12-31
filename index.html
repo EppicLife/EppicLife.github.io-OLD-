@@ -92,7 +92,7 @@
   align-items: center;   
   padding: 40px 20px 20px 20px;  /* ⬅️ pushes content down slightly */
   text-align: center;
-  gap: 28px;                     /* ⬅️ clean spacing between sections */
+  row-gap: 12px;
 }
     
 /* Positioning inside the center panel */
@@ -117,6 +117,10 @@
   margin-top: auto;   /* pushes posting coach to bottom */
   margin-bottom: 8px;
 }    
+
+.center-spacer {
+  flex-grow: 1;
+}
 
     .right-panel {
       grid-row: 1 / 2;
@@ -703,7 +707,8 @@
           <span class="dot"></span>
           Enter EppicLife Journal
         </button>
-      
+      <div class="center-spacer"></div>
+
         <!-- Posting Coach Panel -->
 <div class="posting-coach" id="posting-coach">
   <div class="pc-title">TODAY’S POSTING SUGGESTION</div>
@@ -1158,6 +1163,7 @@ fetchWeather("ellensburg");
 </script>
 </body>
 </html>
+
 
 
 
