@@ -275,19 +275,15 @@ body {
 
 /* WEATHER */
 .weather-block {
-  background-color: rgba(34, 49, 34, 0.85);
-  color: var(--text-main);
-  padding: 20px;
-  border-radius: 10px;
   margin-bottom: 20px;
-  font-family: 'Segoe UI', sans-serif;
-  box-shadow: 0 0 18px rgba(0,0,0,0.6);
+  text-align: center;
 }
+
 #weather-title {
   color: var(--accent-orange); /* hunter orange */
   font-size: 1.1rem;
   margin-bottom: 12px;
-  text-align: left;
+  text-align: center;
 }
 
 #weather-content p {
@@ -305,16 +301,17 @@ body {
 .switch-btn {
   margin-top: 12px;
   padding: 8px 16px;
-  background: #222;
+  background: rgba(0,0,0,0.6);
   color: var(--accent-orange);
   border: 1px solid var(--accent-orange);
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
+  transition: background 0.2s ease;
 }
 
 .switch-btn:hover {
-  background: #333;
+  background: rgba(255,106,0,0.1);
 }
 
 /* DEER */
