@@ -270,9 +270,12 @@ body {
   box-shadow: 0 0 45px rgba(0, 0, 0, 0.9);
   backdrop-filter: blur(20px);
   padding: 20px;
-  overflow-y: auto;
+
+  /* THE FIX */
   display: flex;
   flex-direction: column;
+  height: 100%;          /* NEW */
+  overflow-y: auto;
 }
 
 /* DATE/TIME */
