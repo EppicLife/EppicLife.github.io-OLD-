@@ -36,6 +36,9 @@
     <!-- CENTER PANEL -->
     <main class="center-panel">
 
+      <!-- EMBER TITLE -->
+      <div class="ember-title">EPPICLIFE</div>
+
       <!-- SEARCH -->
       <div class="search-shell">
         <form
@@ -45,7 +48,7 @@
           target="_blank"
         >
           <div class="search-bar">
-            <div class="search-icon"></div>
+            <div class="search-icon">🔍</div>
             <input
               class="search-input"
               type="text"
@@ -64,17 +67,18 @@
       <!-- FLEX SPACER TOP -->
       <div class="center-spacer-top"></div>
 
-      <!-- TAGLINE + BUTTON -->
-      <div class="center-core">
+      <!-- TAGLINE -->
+      <div class="tagline-wrapper">
+        <div class="tagline-dash"></div>
         <div class="tagline" id="tagline">
-          EppicLife — Built on truth, carried by grit.
+          <!-- JS will insert rotating tagline -->
         </div>
-
-        <button class="onenote-button" id="onenote-button" type="button">
-          <span class="dot"></span>
-          Enter EppicLife Journal
-        </button>
       </div>
+
+      <!-- BUTTON -->
+      <button class="onenote-button" id="onenote-button" type="button">
+        Eppic Journal
+      </button>
 
       <!-- FLEX SPACER BOTTOM -->
       <div class="center-spacer-bottom"></div>
@@ -139,7 +143,7 @@
         <!-- MOON PHASE -->
         <div class="moon-section">
           <div class="moon-pill">
-            <span class="moon-icon" id="moon-icon-footer">○</span>
+            <img id="moon-icon-footer" class="moon-icon-img" src="" alt="Moon phase">
             <span id="moon-phase-footer">Moon phase loading…</span>
           </div>
         </div>
