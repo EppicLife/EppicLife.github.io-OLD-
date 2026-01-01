@@ -376,6 +376,7 @@ body {
   padding-bottom: 1.2em;
   text-shadow: 0 0 6px rgba(255, 255, 255, 0.25);
 }
+
 .footer-quote::after {
   content: "";
   position: absolute;
@@ -403,6 +404,7 @@ body {
 
   .footer {
     position: relative;
+  }
   }
 .switch-btn {
   margin-top: 12px;
