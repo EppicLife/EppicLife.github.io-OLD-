@@ -1,197 +1,404 @@
-/* ROOT VARIABLES */
-:root {
-  --text-main: rgba(240,240,240,0.95);
-  --text-muted: rgba(200,200,200,0.65);
-  --accent-orange: #ff6a00;
-  --font-display: "TT Livret Display", serif;
-}
+/* ===========================
+   GLOBAL RESET & BASE STYLES
+   =========================== */
 
-/* GLOBAL RESET */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    background: #0d0d0d;
+    color: #ffffff;
+    overflow: hidden;
+}
+
+/* Smooth fade-in for the whole app */
 body {
-  font-family: var(--font-display);
-  color: var(--text-main);
-  background: #000;
-  overflow: hidden;
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out forwards;
 }
 
-/* BACKGROUND */
-.background {
-  position: fixed;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  filter: brightness(0.55);
-  z-index: -2;
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
-.background-overlay {
-  position: fixed;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.85));
-  z-index: -1;
+/* ===========================
+   LAYOUT WRAPPER
+   =========================== */
+
+#app {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    height: 100vh;
+    width: 100vw;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(12px);
+}
+/* ===========================
+   LEFT PANEL — WEATHER BLOCK
+   =========================== */
+
+#left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(20, 20, 20, 0.45);
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* PAGE GRID */
-.page {
-  display: grid;
-  grid-template-columns: 300px 1fr 300px;
-  grid-template-rows: 1fr auto;
-  height: 100vh;
-  overflow: hidden;
+/* Weather container */
+.weather-block {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(8px);
 }
 
-/* SIDE PANELS — SMOKEY GLASS */
-.left-panel,
-.right-panel {
-  background: rgba(0,0,0,0.45);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 18px;
-  box-shadow: 0 0 40px rgba(0,0,0,0.85);
-  backdrop-filter: blur(22px);
-  padding: 20px;
-  overflow-y: auto;
+/* Weather header */
+.weather-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
 }
 
-/* CENTER PANEL */
-.center-panel {
-  display: flex;
-  flex-direction: column;
-  padding: 40px;
-  overflow-y: auto;
-  align-items: center;
+.weather-header h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ff7b00;
 }
 
-/* EMBER TITLE */
-.ember-title {
-  font-family: var(--font-display);
-  font-size: 2.2rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  background: linear-gradient(to top, #ff6a00, #ffb380, #ffffff);
-  -webkit-background-clip: text;
-  color: transparent;
-  text-shadow: 0 0 12px rgba(255,106,0,0.55);
-  animation: emberFadeIn 1.4s ease forwards, emberFlicker 6s infinite ease-in-out;
-  opacity: 0;
+/* Weather temperature */
+.weather-temp {
+    font-size: 3.2rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 8px;
 }
 
-@keyframes emberFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* Weather details row */
+.weather-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    opacity: 0.85;
+}
+/* ===========================
+   CENTER PANEL — MAIN VIEW
+   =========================== */
+
+#center-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    background: rgba(20, 20, 20, 0.45);
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-@keyframes emberFlicker {
-  0%, 100% { text-shadow: 0 0 12px rgba(255,106,0,0.55); }
-  45% { text-shadow: 0 0 18px rgba(255,106,0,0.75); }
-  52% { text-shadow: 0 0 10px rgba(255,106,0,0.45); }
-  57% { text-shadow: 0 0 20px rgba(255,106,0,0.85); }
-  63% { text-shadow: 0 0 14px rgba(255,106,0,0.65); }
+/* Rotating background image container */
+#center-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.35;
+    transition: opacity 1.2s ease-in-out;
 }
 
-/* ORANGE DASH UNDER TITLE */
-.tagline-dash {
-  width: 90px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent-orange), transparent);
-  opacity: 0.9;
-  margin-top: 12px;
-  margin-bottom: 20px;
+/* Frosted overlay for readability */
+#center-overlay {
+    position: relative;
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(14px);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
-/* END CHUNK A */
-/* SEARCH BAR */
-.search-shell {
-  text-align: center;
-  margin-top: 10px;
+/* Center panel title */
+#center-overlay h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ff7b00;
+    margin-bottom: 10px;
 }
 
-.search-bar-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+/* Center panel content text */
+#center-overlay p {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    opacity: 0.9;
+}
+/* ===========================
+   RIGHT PANEL — TOOLS & CARDS
+   =========================== */
+
+#right-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(20, 20, 20, 0.45);
+    border-radius: 14px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* MATCHING THE OLD IMAGE EXACTLY */
-.search-bar {
-  display: flex;
-  align-items: center;
-  background: rgba(0,0,0,0.55);
-  border: 1px solid rgba(255,255,255,0.10);
-  padding: 14px 18px;
-  border-radius: 14px;
-  width: 100%;
-  max-width: 420px;
-  backdrop-filter: blur(14px);
-  transition: box-shadow 0.25s ease, border-color 0.25s ease;
-  box-shadow: 0 0 8px rgba(255,106,0,0.25);
+/* Generic card style */
+.card {
+    padding: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(8px);
 }
 
-.search-bar:hover,
-.search-bar:focus-within {
-  border-color: rgba(255,106,0,0.6);
-  box-shadow:
-    0 0 10px rgba(255,106,0,0.6),
-    0 0 18px rgba(255,106,0,0.4);
+/* Card title */
+.card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ff7b00;
+    margin-bottom: 10px;
 }
 
-/* MAGNIFYING GLASS — MATCH OLD STYLE */
-.search-icon {
-  margin-right: 12px;
-  font-size: 1.2rem;
-  opacity: 0.9;
-  filter: drop-shadow(0 0 4px rgba(255,106,0,0.4));
+/* Card text */
+.card p {
+    font-size: 0.95rem;
+    line-height: 1.45;
+    opacity: 0.9;
 }
 
-/* INPUT FIELD */
-.search-input {
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--text-main);
-  width: 100%;
-  font-size: 1rem;
-  font-family: var(--font-display);
-  letter-spacing: 0.02em;
+/* Buttons inside cards */
+.card button {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #ff7b00;
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease;
 }
 
-/* LABEL UNDER SEARCH BAR */
-.search-engine-label {
-  margin-top: 10px;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  font-family: var(--font-display);
-  letter-spacing: 0.03em;
+.card button:hover {
+    background: #ffa64d;
+}
+/* ===========================
+   GRID PANEL SIZING & SPACING
+   =========================== */
+
+#left-panel,
+#center-panel,
+#right-panel {
+    min-height: 0;
+    overflow: hidden;
 }
 
-/* END CHUNK B */
-/* TAGLINE WRAPPER + TEXT */
-.tagline-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  opacity: 0;
-  animation: taglineFadeIn 1.4s ease forwards;
-  margin-top: 10px; /* keeps it under the orange dash */
+/* Ensure panels don’t collapse */
+#left-panel,
+#right-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
-@keyframes taglineFadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* Scrollable content inside panels */
+.scrollable {
+    overflow-y: auto;
+    padding-right: 6px;
 }
 
-.tagline {
-  text-align: center;
-  font-size: 1.2rem;
-  opacity: 0.9;
-  font-family: var(--font-display);
-  letter-spacing: 0.02em;
-  padding: 0 20px;
+.scrollable::-webkit-scrollbar {
+    width: 6px;
 }
-/* END CHUNK C */
+
+.scrollable::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
+}
+
+.scrollable::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+/* ===========================
+   BUTTONS — GLOBAL STYLE
+   =========================== */
+
+button {
+    padding: 10px 16px;
+    background: #ff7b00;
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background: #ffa64d;
+}
+
+button:active {
+    transform: scale(0.96);
+}
+
+/* ===========================
+   INPUTS & FORMS
+   =========================== */
+
+input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: rgba(255, 255, 255, 0.45);
+}
+
+textarea {
+    resize: none;
+}
+/* ===========================
+   TYPOGRAPHY & UTILITY CLASSES
+   =========================== */
+
+h1, h2, h3, h4 {
+    letter-spacing: 0.03em;
+}
+
+.subtle {
+    font-size: 0.9rem;
+    opacity: 0.75;
+}
+
+.accent {
+    color: #ff7b00;
+}
+
+.muted {
+    opacity: 0.6;
+}
+
+.tag {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+/* Spacing helpers */
+
+.mt-10 { margin-top: 10px; }
+.mt-20 { margin-top: 20px; }
+.mb-10 { margin-bottom: 10px; }
+.mb-20 { margin-bottom: 20px; }
+
+/* Alignment helpers */
+
+.flex-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+/* ===========================
+   ANIMATIONS & EFFECTS
+   =========================== */
+
+/* Fade + slight rise */
+.fade-up {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeUp 0.5s ease-out forwards;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Pulse glow for accent elements */
+.glow {
+    animation: glowPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0% { box-shadow: 0 0 0px rgba(255, 123, 0, 0.0); }
+    50% { box-shadow: 0 0 14px rgba(255, 123, 0, 0.45); }
+    100% { box-shadow: 0 0 0px rgba(255, 123, 0, 0.0); }
+}
+
+/* ===========================
+   RESPONSIVE BEHAVIOR
+   =========================== */
+
+@media (max-width: 1200px) {
+    #app {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+    }
+
+    #right-panel {
+        grid-column: span 2;
+    }
+}
+
+@media (max-width: 800px) {
+    #app {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+
+    #left-panel,
+    #center-panel,
+    #right-panel {
+        height: auto;
+    }
+}
