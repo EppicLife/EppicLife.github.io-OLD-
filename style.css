@@ -264,18 +264,15 @@ body {
   box-shadow: 0 0 45px rgba(0, 0, 0, 0.9);
   backdrop-filter: blur(20px);
   padding: 20px;
+
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
 }
 
-/* This is the only flex column that matters */
-.wilderness-panel {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-/* SPACER between time and weather */
-.weather-spacer {
+/* FLEX SPACERS FOR VERTICAL DISTRIBUTION */
+.weather-spacer-top,
+.weather-spacer-bottom {
   flex-grow: 1;
 }
 
