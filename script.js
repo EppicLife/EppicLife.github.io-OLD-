@@ -67,8 +67,15 @@ function updateDateTime() {
 
   const now = new Date();
   dayEl.textContent = now.toLocaleDateString(undefined, { weekday: "long" });
-  dateEl.textContent = now.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" });
-  timeEl.textContent = now.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  dateEl.textContent = now.toLocaleDateString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric"
+  });
+  timeEl.textContent = now.toLocaleTimeString(undefined, {
+    hour: "numeric",
+    minute: "2-digit"
+  });
 }
 
 /* MOON PHASE */
@@ -91,7 +98,7 @@ function getMoonPhaseInfo(date) {
     "Waning Crescent"
   ];
 
-  const icons = ["●","◔","◑","◕","○","◕","◑","◔"];
+  const icons = ["●", "◔", "◑", "◕", "○", "◕", "◑", "◔"];
 
   return { name: names[index], icon: icons[index] };
 }
@@ -107,43 +114,29 @@ function applyMoonPhase() {
   if (footerText) footerText.textContent = info.name;
 }
 
-/* ONENOTE BUTTON */
-document.addEventListener("DOMContentLoaded", () => {
-  chooseTagline();
-  chooseQuote();
-  updateDateTime();
-  applyMoonPhase();
-
-  setInterval(updateDateTime, 60000);
-
-  const onenoteButton = document.getElementById("onenote-button");
-  if (onenoteButton) {
-    onenoteButton.addEventListener("click", () => {
-      const oneNoteUrl = "https://www.onenote.com/";
-      window.open(oneNoteUrl, "_blank");
-    });
-  }
-});
-
 /* POSTING COACH */
 function getPostingSuggestion() {
   const coachMessage = document.getElementById("pc-message");
   const coachTiming = document.getElementById("pc-timing");
+  if (!coachMessage || !coachTiming) return;
 
   const now = new Date();
   const day = now.getDay();
 
   const schedule = {
     1: {
-      message: "Share a practical resource today — something that helps veterans navigate housing, benefits, or medical systems.",
+      message:
+        "Share a practical resource today — something that helps veterans navigate housing, benefits, or medical systems.",
       timing: "Best time to post: 9 AM – 12 PM"
     },
     3: {
-      message: "Offer a grounding skill or stress‑management tool. Someone needs this today.",
+      message:
+        "Offer a grounding skill or stress‑management tool. Someone needs this today.",
       timing: "Best time to post: 11 AM – 2 PM"
     },
     5: {
-      message: "Spotlight a local group, event, or resource in one of your five counties.",
+      message:
+        "Spotlight a local group, event, or resource in one of your five counties.",
       timing: "Best time to post: 10 AM – 1 PM"
     },
     0: {
@@ -156,30 +149,70 @@ function getPostingSuggestion() {
     coachMessage.textContent = schedule[day].message;
     coachTiming.textContent = schedule[day].timing;
   } else {
-    coachMessage.textContent = "No post needed today. Focus on your real‑world work.";
+    coachMessage.textContent =
+      "No post needed today. Focus on your real‑world work.";
     coachTiming.textContent = "Next posting day: Mon, Wed, Fri, Sun.";
   }
 }
 
-getPostingSuggestion();
-
 /* WEATHER */
+// NOTE: In production, this key should be moved server-side.
 const API_KEY = "61d2707f92567484d2ce96ac93348f87";
 
 const cities = {
-  ellensburg: { name: "Ellensburg Weather", lat: 46.9965, lon: -120.5478 },
-  clearwater: { name: "Clearwater Weather", lat: 27.9659, lon: -82.8001 }
+  ellensburg: {
+    name: "Ellensburg<br>Weather",
+    lat: 46.9965,
+    lon: -120.5478
+  },
+  clearwater: {
+    name: "Clearwater<br>Weather",
+    lat: 27.9659,
+    lon: -82.8001
+  }
 };
 
 let currentCity = "ellensburg";
 
+function isValidWeatherData(data) {
+  return (
+    data &&
+    data.main &&
+    typeof data.main.temp === "number" &&
+    data.weather &&
+    Array.isArray(data.weather) &&
+    data.weather[0] &&
+    data.sys &&
+    typeof data.sys.sunrise === "number" &&
+    typeof data.sys.sunset === "number" &&
+    data.wind &&
+    typeof data.wind.speed === "number"
+  );
+}
+
 async function fetchWeather(cityKey) {
-  const { lat, lon } = cities[cityKey];
+  const city = cities[cityKey];
+  if (!city) {
+    console.error("Unknown city key:", cityKey);
+    return;
+  }
+
+  const { lat, lon } = city;
   const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=imperial`;
 
   try {
     const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Weather HTTP error: ${response.status}`);
+    }
+
     const data = await response.json();
+
+    if (!isValidWeatherData(data)) {
+      console.error("Invalid weather data structure:", data);
+      return;
+    }
+
     updateWeatherPanel(cityKey, data);
   } catch (error) {
     console.error("Weather fetch error:", error);
@@ -187,21 +220,93 @@ async function fetchWeather(cityKey) {
 }
 
 function updateWeatherPanel(cityKey, data) {
-  document.getElementById("weather-title").textContent = cities[cityKey].name;
-  document.getElementById("temp").textContent = `${Math.round(data.main.temp)}°`;
-  document.getElementById("conditions").textContent = data.weather[0].description;
-  document.getElementById("wind").textContent = `Wind: ${Math.round(data.wind.speed)} mph`;
-document.getElementById("sun").innerHTML = `
-  <span class="sunrise-icon">🌅</span> Sunrise: ${new Date(data.sys.sunrise * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}<br>
-  <span class="sunset-icon">🌇</span> Sunset: ${new Date(data.sys.sunset * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
-`;
+  const city = cities[cityKey];
+  if (!city) return;
+
+  const titleEl = document.getElementById("weather-title");
+  const tempEl = document.getElementById("temp");
+  const conditionsEl = document.getElementById("conditions");
+  const windEl = document.getElementById("wind");
+  const sunEl = document.getElementById("sun");
+
+  if (titleEl) {
+    // Use innerHTML to preserve the line break in the name.
+    titleEl.innerHTML = city.name;
+  }
+
+  if (tempEl) {
+    tempEl.textContent = `${Math.round(data.main.temp)}°`;
+  }
+
+  if (conditionsEl) {
+    conditionsEl.textContent = data.weather[0].description;
+  }
+
+  if (windEl) {
+    windEl.textContent = `Wind: ${Math.round(data.wind.speed)} mph`;
+  }
+
+  if (sunEl) {
+    const sunriseTime = new Date(
+      data.sys.sunrise * 1000
+    ).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+    const sunsetTime = new Date(
+      data.sys.sunset * 1000
+    ).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+
+    // Clear previous content
+    sunEl.innerHTML = "";
+
+    const sunriseIcon = document.createElement("span");
+    sunriseIcon.className = "sunrise-icon";
+    sunriseIcon.textContent = "🌅";
+
+    const sunsetIcon = document.createElement("span");
+    sunsetIcon.className = "sunset-icon";
+    sunsetIcon.textContent = "🌇";
+
+    sunEl.append(
+      sunriseIcon,
+      document.createTextNode(` Sunrise: ${sunriseTime}`),
+      document.createElement("br"),
+      sunsetIcon,
+      document.createTextNode(` Sunset: ${sunsetTime}`)
+    );
+  }
 }
 
-document.getElementById("switch-city-btn").addEventListener("click", () => {
-  currentCity = currentCity === "ellensburg" ? "clearwater" : "ellensburg";
-  document.getElementById("switch-city-btn").textContent =
-    currentCity === "ellensburg" ? "Clearwater" : "Ellensburg";
+/* DOM READY */
+document.addEventListener("DOMContentLoaded", () => {
+  // Tagline, quote, time, moon
+  chooseTagline();
+  chooseQuote();
+  updateDateTime();
+  applyMoonPhase();
+  setInterval(updateDateTime, 60000);
+
+  // OneNote button
+  const onenoteButton = document.getElementById("onenote-button");
+  if (onenoteButton) {
+    onenoteButton.addEventListener("click", () => {
+      const oneNoteUrl = "https://www.onenote.com/";
+      window.open(oneNoteUrl, "_blank");
+    });
+  }
+
+  // Posting coach
+  getPostingSuggestion();
+
+  // Weather switch button
+  const switchBtn = document.getElementById("switch-city-btn");
+  if (switchBtn) {
+    switchBtn.addEventListener("click", () => {
+      currentCity = currentCity === "ellensburg" ? "clearwater" : "ellensburg";
+      switchBtn.textContent =
+        currentCity === "ellensburg" ? "Clearwater" : "Ellensburg";
+      fetchWeather(currentCity);
+    });
+  }
+
+  // Initial weather load
   fetchWeather(currentCity);
 });
-
-fetchWeather("ellensburg");
