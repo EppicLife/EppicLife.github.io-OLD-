@@ -34,53 +34,59 @@
     </aside>
 
     <!-- CENTER PANEL -->
-    <main class="center-panel">
+<main class="center-panel">
 
-      <div class="search-shell">
-        <div class="logo-text">EPPICLIFE</div>
-
-        <form
-          class="search-bar-wrapper"
-          action="https://www.google.com/search"
-          method="GET"
-          target="_blank"
-        >
-          <div class="search-bar">
-            <div class="search-icon"></div>
-            <input
-              class="search-input"
-              type="text"
-              name="q"
-              placeholder="Hunt down what you need..."
-              autocomplete="off"
-            />
-          </div>
-
-          <div class="search-engine-label">
-            EppicLife — Every Veteran Matters.
-          </div>
-        </form>
+  <!-- SEARCH -->
+  <div class="search-shell">
+    <form
+      class="search-bar-wrapper"
+      action="https://www.google.com/search"
+      method="GET"
+      target="_blank"
+    >
+      <div class="search-bar">
+        <div class="search-icon"></div>
+        <input
+          class="search-input"
+          type="text"
+          name="q"
+          placeholder="Hunt down what you need..."
+          autocomplete="off"
+        />
       </div>
 
-      <div class="tagline" id="tagline">
-        EppicLife — Built on truth, carried by grit.
+      <div class="search-engine-label">
+        EppicLife — Every Veteran Matters.
       </div>
+    </form>
+  </div>
 
-      <button class="onenote-button" id="onenote-button" type="button">
-        <span class="dot"></span>
-        Enter EppicLife Journal
-      </button>
+  <!-- FLEX SPACER TOP -->
+  <div class="center-spacer-top"></div>
 
-      <div class="center-spacer"></div>
+  <!-- TAGLINE + BUTTON -->
+  <div class="center-core">
+    <div class="tagline" id="tagline">
+      EppicLife — Built on truth, carried by grit.
+    </div>
 
-      <!-- POSTING COACH -->
-      <div class="posting-coach" id="posting-coach">
-        <div class="pc-title">TODAY’S POSTING SUGGESTION</div>
-        <div class="pc-message" id="pc-message">Loading...</div>
-        <div class="pc-timing" id="pc-timing"></div>
-      </div>
+    <button class="onenote-button" id="onenote-button" type="button">
+      <span class="dot"></span>
+      Enter EppicLife Journal
+    </button>
+  </div>
 
-    </main>
+  <!-- FLEX SPACER BOTTOM -->
+  <div class="center-spacer-bottom"></div>
+
+  <!-- POSTING COACH -->
+  <div class="posting-coach" id="posting-coach">
+    <div class="pc-title">TODAY’S POSTING SUGGESTION</div>
+    <div class="pc-message" id="pc-message">Loading...</div>
+    <div class="pc-timing" id="pc-timing"></div>
+  </div>
+
+</main>
 
     <!-- RIGHT PANEL: WILDERNESS -->
     <aside class="right-panel">
@@ -155,3 +161,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
