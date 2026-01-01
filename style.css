@@ -163,7 +163,8 @@ body {
   display: flex;
   align-items: center;
   background: rgba(0,0,0,0.6);
-  border: 1px solid rgba(255,255,255,0.1);
+  border: none;
+  outline: none;
   padding: 10px 14px;
   border-radius: 12px;
   width: 100%;
