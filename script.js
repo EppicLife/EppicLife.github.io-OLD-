@@ -1,305 +1,211 @@
-/* TAGLINES */
+/* -----------------------------
+   DATE & TIME
+----------------------------- */
+function updateDateTime() {
+  const now = new Date();
+
+  const dayNames = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+  const monthNames = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+  const day = dayNames[now.getDay()];
+  const date = `${monthNames[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
+
+  let hours = now.getHours();
+  const minutes = now.getMinutes().toString().padStart(2, "0");
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12;
+
+  const time = `${hours}:${minutes} ${ampm}`;
+
+  document.getElementById("footer-day").textContent = day;
+  document.getElementById("footer-date").textContent = date;
+  document.getElementById("footer-time").textContent = time;
+}
+setInterval(updateDateTime, 1000);
+updateDateTime();
+
+/* -----------------------------
+   TAGLINE ROTATION
+----------------------------- */
 const taglines = [
-  "EppicLife — From mud, from ash, from truth.",
-  "EppicLife — Built from the wreckage, rising anyway.",
-  "EppicLife — Forged in the quiet, proven in the storm.",
-  "EppicLife — Born twice: once by chance, once by choice.",
-  "EppicLife — Rise. Fall. Rise better.",
-  "EppicLife — The man rebuilt from the fire.",
-  "EppicLife — No masks. No excuses. Just the work.",
-  "EppicLife — Honest bones. Hard miles. Open heart.",
-  "EppicLife — Built on truth, carried by grit.",
-  "EppicLife — Strong enough to break, brave enough to rebuild.",
-  "EppicLife — The courage to be real.",
-  "EppicLife — Fight forward.",
-  "EppicLife — The comeback is the story.",
-  "EppicLife — Hit the ground. Stand again.",
-  "EppicLife — The man who refuses to stay down.",
-  "EppicLife — Every scar earned. Every step chosen.",
-  "EppicLife — Built by wind, sharpened by mountains.",
-  "EppicLife — Where the wild makes the man.",
-  "EppicLife — Strong as the land that raised me.",
-  "EppicLife — Walk the ridge. Face the truth.",
-  "EppicLife — A life carved from public lands and hard lessons.",
-  "EppicLife — Becoming the man I was meant to be.",
-  "EppicLife — A life lived awake.",
-  "EppicLife — Spirit-led. Grit-built. Truth-driven.",
-  "EppicLife — The journey inward is the real hunt.",
-  "EppicLife — Becoming is the bravest thing a man can do.",
-  "EppicLife — Rise anyway.",
-  "EppicLife — Built, not born.",
-  "EppicLife — Earned. Every day.",
-  "EppicLife — Rise. Hunt. Become.",
-  "EppicLife — Strong. Still. Becoming."
+  "Every scar earned. Every step chosen.",
+  "Stand tall. Move forward.",
+  "Your story is still being written.",
+  "Strength is built one choice at a time.",
+  "You are the fire that endures.",
+  "Walk with purpose. Live with honor."
 ];
 
 function chooseTagline() {
-  const el = document.getElementById("tagline");
-  if (!el) return;
-  const choice = taglines[Math.floor(Math.random() * taglines.length)];
-  el.textContent = choice;
+  const taglineEl = document.getElementById("tagline");
+  const random = Math.floor(Math.random() * taglines.length);
+  taglineEl.style.opacity = 0;
+
+  setTimeout(() => {
+    taglineEl.textContent = taglines[random];
+    taglineEl.style.opacity = 1;
+  }, 300);
 }
 
-/* QUOTES */
-const quotes = [
-  "“There are some who can live without wild things and some who cannot.” — Aldo Leopold",
-  "“In wildness is the preservation of the world.” — Henry David Thoreau",
-  "“The mountains are calling and I must go.” — John Muir",
-  "“Wilderness is not a luxury but a necessity of the human spirit.” — Edward Abbey",
-  "“The clearest way into the Universe is through a forest wilderness.” — John Muir",
-  "“A man is whole only when he takes into account his shadow.” — Carl Jung",
-  "“Not all who wander are lost.” — J.R.R. Tolkien"
-];
+chooseTagline();
+setInterval(chooseTagline, 30 * 60 * 1000);
 
-function chooseQuote() {
-  const el = document.getElementById("footer-quote");
-  if (!el) return;
-  const choice = quotes[Math.floor(Math.random() * quotes.length)];
-  el.textContent = choice;
-}
+/* -----------------------------
+   EPPIC JOURNAL BUTTON
+----------------------------- */
+document.getElementById("onenote-button").addEventListener("click", () => {
+  window.open("onenote:https://d.docs.live.net/your-onenote-link-here", "_blank");
+});
 
-/* DATE/TIME */
-function updateDateTime() {
-  const dayEl = document.getElementById("footer-day");
-  const dateEl = document.getElementById("footer-date");
-  const timeEl = document.getElementById("footer-time");
-  if (!dayEl || !dateEl || !timeEl) return;
+/* -----------------------------
+   POSTING COACH
+----------------------------- */
+function updatePostingCoach() {
+  const pcMessage = document.getElementById("pc-message");
+  const pcTiming = document.getElementById("pc-timing");
 
-  const now = new Date();
-  dayEl.textContent = now.toLocaleDateString(undefined, { weekday: "long" });
-  dateEl.textContent = now.toLocaleDateString(undefined, {
-    month: "short",
-    day: "numeric",
-    year: "numeric"
-  });
-  timeEl.textContent = now.toLocaleTimeString(undefined, {
-    hour: "numeric",
-    minute: "2-digit"
-  });
-}
+  const day = new Date().getDay();
+  const highImpactDays = [1,3,5,0];
 
-/* MOON PHASE */
-function getMoonPhaseInfo(date) {
-  const synodicMonth = 29.53058867;
-  const knownNewMoon = Date.UTC(2000, 0, 6, 18, 14);
-  const now = date.getTime();
-  const daysSince = (now - knownNewMoon) / (1000 * 60 * 60 * 24);
-  const phase = ((daysSince % synodicMonth) + synodicMonth) % synodicMonth;
-  const index = Math.floor((phase / synodicMonth) * 8);
-
-  const names = [
-    "New Moon",
-    "Waxing Crescent",
-    "First Quarter",
-    "Waxing Gibbous",
-    "Full Moon",
-    "Waning Gibbous",
-    "Last Quarter",
-    "Waning Crescent"
-  ];
-
-  const icons = ["●", "◔", "◑", "◕", "○", "◕", "◑", "◔"];
-
-  return { name: names[index], icon: icons[index] };
-}
-
-function applyMoonPhase() {
-  const now = new Date();
-  const info = getMoonPhaseInfo(now);
-
-  const footerIcon = document.getElementById("moon-icon-footer");
-  const footerText = document.getElementById("moon-phase-footer");
-
-  if (footerIcon) footerIcon.textContent = info.icon;
-  if (footerText) footerText.textContent = info.name;
-}
-
-/* POSTING COACH */
-function getPostingSuggestion() {
-  const coachMessage = document.getElementById("pc-message");
-  const coachTiming = document.getElementById("pc-timing");
-  if (!coachMessage || !coachTiming) return;
-
-  const now = new Date();
-  const day = now.getDay();
-
-  const schedule = {
-    1: {
-      message:
-        "Share a practical resource today — something that helps veterans navigate housing, benefits, or medical systems.",
-      timing: "Best time to post: 9 AM – 12 PM"
-    },
-    3: {
-      message:
-        "Offer a grounding skill or stress‑management tool. Someone needs this today.",
-      timing: "Best time to post: 11 AM – 2 PM"
-    },
-    5: {
-      message:
-        "Spotlight a local group, event, or resource in one of your five counties.",
-      timing: "Best time to post: 10 AM – 1 PM"
-    },
-    0: {
-      message: "Share a reflection about purpose, resilience, or community.",
-      timing: "Best time to post: 8 AM – 11 AM"
-    }
-  };
-
-  if (schedule[day]) {
-    coachMessage.textContent = schedule[day].message;
-    coachTiming.textContent = schedule[day].timing;
+  if (highImpactDays.includes(day)) {
+    pcMessage.textContent = "Today is a high‑impact posting day. Share something meaningful.";
+    pcTiming.textContent = "Best windows: Morning or early evening.";
   } else {
-    coachMessage.textContent =
-      "No post needed today. Focus on your real‑world work.";
-    coachTiming.textContent = "Next posting day: Mon, Wed, Fri, Sun.";
+    pcMessage.textContent = "No post needed today. Focus on your real‑world work.";
+    pcTiming.textContent = "Next high‑impact day: Monday, Wednesday, Friday, or Sunday.";
   }
 }
+updatePostingCoach();
 
-/* WEATHER */
-// NOTE: In production, this key should be moved server-side.
-const API_KEY = "61d2707f92567484d2ce96ac93348f87";
+/* -----------------------------
+   WEATHER
+----------------------------- */
+let currentCity = "Ellensburg";
 
-const cities = {
-  ellensburg: {
-    name: "Ellensburg<br>Weather",
-    lat: 46.9965,
-    lon: -120.5478
-  },
-  clearwater: {
-    name: "Clearwater<br>Weather",
-    lat: 27.9659,
-    lon: -82.8001
-  }
-};
-
-let currentCity = "ellensburg";
-
-function isValidWeatherData(data) {
-  return (
-    data &&
-    data.main &&
-    typeof data.main.temp === "number" &&
-    data.weather &&
-    Array.isArray(data.weather) &&
-    data.weather[0] &&
-    data.sys &&
-    typeof data.sys.sunrise === "number" &&
-    typeof data.sys.sunset === "number" &&
-    data.wind &&
-    typeof data.wind.speed === "number"
-  );
-}
-
-async function fetchWeather(cityKey) {
-  const city = cities[cityKey];
-  if (!city) {
-    console.error("Unknown city key:", cityKey);
-    return;
-  }
-
-  const { lat, lon } = city;
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=imperial`;
-
+async function fetchWeather(city) {
   try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Weather HTTP error: ${response.status}`);
-    }
+    const apiKey = "YOUR_OPENWEATHER_KEY";
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${apiKey}`;
+    const res = await fetch(url);
+    const data = await res.json();
 
-    const data = await response.json();
+    document.getElementById("weather-title").innerHTML = `${city}<br>Weather`;
+    document.getElementById("temp").textContent = `${Math.round(data.main.temp)}°`;
+    document.getElementById("conditions").textContent = data.weather[0].description;
+    document.getElementById("wind").textContent = `Wind: ${Math.round(data.wind.speed)} mph`;
 
-    if (!isValidWeatherData(data)) {
-      console.error("Invalid weather data structure:", data);
-      return;
-    }
-
-    updateWeatherPanel(cityKey, data);
-  } catch (error) {
-    console.error("Weather fetch error:", error);
+    const sunrise = new Date(data.sys.sunrise * 1000).toLocaleTimeString([], {hour: "numeric", minute: "2-digit"});
+    const sunset = new Date(data.sys.sunset * 1000).toLocaleTimeString([], {hour: "numeric", minute: "2-digit"});
+    document.getElementById("sun").textContent = `Sunrise: ${sunrise} | Sunset: ${sunset}`;
+  } catch (err) {
+    document.getElementById("temp").textContent = "Weather unavailable";
   }
 }
 
-function updateWeatherPanel(cityKey, data) {
-  const city = cities[cityKey];
-  if (!city) return;
+fetchWeather(currentCity);
 
-  const titleEl = document.getElementById("weather-title");
-  const tempEl = document.getElementById("temp");
-  const conditionsEl = document.getElementById("conditions");
-  const windEl = document.getElementById("wind");
-  const sunEl = document.getElementById("sun");
-
-  if (titleEl) {
-    titleEl.innerHTML = city.name;
-  }
-
-  if (tempEl) {
-    tempEl.textContent = `${Math.round(data.main.temp)}°`;
-  }
-
-  if (conditionsEl) {
-    conditionsEl.textContent = data.weather[0].description;
-  }
-
-  if (windEl) {
-    windEl.textContent = `Wind: ${Math.round(data.wind.speed)} mph`;
-  }
-
-  if (sunEl) {
-    const sunriseTime = new Date(
-      data.sys.sunrise * 1000
-    ).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-    const sunsetTime = new Date(
-      data.sys.sunset * 1000
-    ).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-
-    sunEl.innerHTML = "";
-
-    const sunriseIcon = document.createElement("span");
-    sunriseIcon.className = "sunrise-icon";
-    sunriseIcon.textContent = "🌅";
-
-    const sunsetIcon = document.createElement("span");
-    sunsetIcon.className = "sunset-icon";
-    sunsetIcon.textContent = "🌇";
-
-    sunEl.append(
-      sunriseIcon,
-      document.createTextNode(` Sunrise: ${sunriseTime}`),
-      document.createElement("br"),
-      sunsetIcon,
-      document.createTextNode(` Sunset: ${sunsetTime}`)
-    );
-  }
-}
-
-/* DOM READY */
-document.addEventListener("DOMContentLoaded", () => {
-  chooseTagline();
-  chooseQuote();
-  updateDateTime();
-  applyMoonPhase();
-  setInterval(updateDateTime, 60000);
-
-  const onenoteButton = document.getElementById("onenote-button");
-  if (onenoteButton) {
-    onenoteButton.addEventListener("click", () => {
-      const oneNoteUrl = "https://www.onenote.com/";
-      window.open(oneNoteUrl, "_blank");
-    });
-  }
-
-  getPostingSuggestion();
-
-  const switchBtn = document.getElementById("switch-city-btn");
-  if (switchBtn) {
-    switchBtn.addEventListener("click", () => {
-      currentCity = currentCity === "ellensburg" ? "clearwater" : "ellensburg";
-      switchBtn.textContent =
-        currentCity === "ellensburg" ? "Clearwater" : "Ellensburg";
-      fetchWeather(currentCity);
-    });
-  }
-
+document.getElementById("switch-city-btn").addEventListener("click", () => {
+  currentCity = currentCity === "Ellensburg" ? "Clearwater" : "Ellensburg";
+  document.getElementById("switch-city-btn").textContent =
+    currentCity === "Ellensburg" ? "Clearwater" : "Ellensburg";
   fetchWeather(currentCity);
 });
+
+/* -----------------------------
+   MOON PHASE (REAL ICONS)
+----------------------------- */
+const moonIcons = [
+  "https://raw.githubusercontent.com/manifestinteractive/moon-phase-icons/master/svg/new-moon.svg",
+  "https://raw.githubusercontent.com/manifestinteractive/moon-phase-icons/master/svg/waxing-crescent-moon.svg",
+  "https://raw.githubusercontent.com/manifestinteractive/moon-phase-icons/master/svg/first-quarter-moon.svg",
+  "https://raw.githubusercontent.com/manifestinteractive/moon-phase-icons/master/svg/waxing-gibbous-moon.svg",
+  "https://raw.githubusercontent.com/manifestinteractive/moon-phase-icons/master/svg/full-moon.svg",
+  "https://raw.githubusercontent.com/manifestinteractive/moon-phase-icons/master/svg/waning-gibbous-moon.svg",
+  "https://raw.githubusercontent.com/manifestinteractive/moon-phase-icons/master/svg/last-quarter-moon.svg",
+  "https://raw.githubusercontent.com/manifestinteractive/moon-phase-icons/master/svg/waning-crescent-moon.svg"
+];
+
+const moonNames = [
+  "New Moon",
+  "Waxing Crescent",
+  "First Quarter",
+  "Waxing Gibbous",
+  "Full Moon",
+  "Waning Gibbous",
+  "Last Quarter",
+  "Waning Crescent"
+];
+
+function getMoonPhaseIndex() {
+  const now = new Date();
+  const lp = 2551443;
+  const new_moon = new Date("Jan 6, 2000 18:14:00").getTime();
+  const phase = ((now.getTime() - new_moon) / 1000) % lp;
+  return Math.floor((phase / lp) * 8);
+}
+
+function updateMoon() {
+  const index = getMoonPhaseIndex();
+  document.getElementById("moon-icon-footer").src = moonIcons[index];
+  document.getElementById("moon-phase-footer").textContent = moonNames[index];
+}
+
+updateMoon();
+
+/* -----------------------------
+   SPORTS (STATIC EXAMPLE)
+----------------------------- */
+const sportsData = [
+  {
+    type: "live",
+    home: "Seahawks",
+    away: "49ers",
+    score: "17 — 20",
+    league: "NFL",
+    tagline: "True to the blue",
+    location: "Lumen Field"
+  },
+  {
+    type: "live",
+    home: "Kraken",
+    away: "Canucks",
+    score: "2 — 1",
+    league: "NHL",
+    tagline: "Release the deep",
+    location: "Rogers Arena"
+  },
+  {
+    type: "upcoming",
+    home: "Mariners",
+    away: "Astros",
+    score: "0 — 0",
+    league: "MLB",
+    tagline: "Late-night heartbreak optional",
+    location: "T-Mobile Park"
+  }
+];
+
+function loadSports() {
+  const container = document.getElementById("sports-container");
+  container.innerHTML = "";
+
+  sportsData.forEach(game => {
+    const block = document.createElement("div");
+    block.className = `sports-block ${game.type}`;
+
+    block.innerHTML = `
+      <div class="sports-row">
+        <div class="sports-team">
+          <span class="sports-team-name">${game.home}</span>
+          <span class="sports-sub">${game.league} — ${game.tagline}</span>
+        </div>
+        <div class="sports-score">${game.score}</div>
+      </div>
+      <div class="sports-sub">${game.location}</div>
+    `;
+
+    container.appendChild(block);
+  });
+}
+
+loadSports();
