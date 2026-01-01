@@ -230,7 +230,6 @@ function updateWeatherPanel(cityKey, data) {
   const sunEl = document.getElementById("sun");
 
   if (titleEl) {
-    // Use innerHTML to preserve the line break in the name.
     titleEl.innerHTML = city.name;
   }
 
@@ -254,7 +253,6 @@ function updateWeatherPanel(cityKey, data) {
       data.sys.sunset * 1000
     ).toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
 
-    // Clear previous content
     sunEl.innerHTML = "";
 
     const sunriseIcon = document.createElement("span");
@@ -277,14 +275,12 @@ function updateWeatherPanel(cityKey, data) {
 
 /* DOM READY */
 document.addEventListener("DOMContentLoaded", () => {
-  // Tagline, quote, time, moon
   chooseTagline();
   chooseQuote();
   updateDateTime();
   applyMoonPhase();
   setInterval(updateDateTime, 60000);
 
-  // OneNote button
   const onenoteButton = document.getElementById("onenote-button");
   if (onenoteButton) {
     onenoteButton.addEventListener("click", () => {
@@ -293,10 +289,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Posting coach
   getPostingSuggestion();
 
-  // Weather switch button
   const switchBtn = document.getElementById("switch-city-btn");
   if (switchBtn) {
     switchBtn.addEventListener("click", () => {
@@ -307,6 +301,5 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Initial weather load
   fetchWeather(currentCity);
 });
