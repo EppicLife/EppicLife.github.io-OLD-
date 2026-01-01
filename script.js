@@ -192,8 +192,10 @@ function updateWeatherPanel(cityKey, data) {
   document.getElementById("conditions").textContent = data.weather[0].description;
   document.getElementById("wind").textContent = `Wind: ${Math.round(data.wind.speed)} mph`;
   document.getElementById("sun").textContent =
-    `Sunrise: ${new Date(data.sys.sunrise * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })} • ` +
-    `Sunset: ${new Date(data.sys.sunset * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
+sunElement.innerHTML = `
+  <span class="sunrise-icon">☀️</span> Sunrise: ${new Date(data.sys.sunrise * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}<br>
+  <span class="sunset-icon">🌙</span> Sunset: ${new Date(data.sys.sunset * 1000).toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}
+`;
 }
 
 document.getElementById("switch-city-btn").addEventListener("click", () => {
