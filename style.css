@@ -1,167 +1,406 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EppicLife Dashboard</title>
+/* ROOT VARIABLES */
+:root {
+  --text-main: rgba(240,240,240,0.95);
+  --text-muted: rgba(200,200,200,0.65);
+  --accent-orange: #ff6a00;
+}
 
-  <!-- LINKED ROOT FILES -->
-  <link rel="stylesheet" href="style.css" />
-</head>
+/* GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-<body>
-  <!-- BACKGROUND -->
-  <div class="background"></div>
-  <div class="background-overlay"></div>
+body {
+  font-family: "Inter", sans-serif;
+  color: var(--text-main);
+  background: #000;
+  overflow: hidden;
+}
 
-  <!-- PAGE GRID -->
-  <div class="page">
+/* BACKGROUND */
+.background {
+  position: fixed;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.55);
+  z-index: -2;
+}
 
-    <!-- LEFT PANEL: SPORTS -->
-    <aside class="left-panel">
-      <div class="sports-panel">
+.background-overlay {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.4),
+    rgba(0,0,0,0.85)
+  );
+  z-index: -1;
+}
 
-        <div class="sports-header">
-          <div class="sports-title">Sports</div>
-          <div class="sports-pill">Live & Upcoming</div>
-        </div>
+/* PAGE GRID */
+.page {
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  grid-template-rows: 1fr auto;
+  height: 100vh;
+  overflow: hidden;
+}
 
-        <div id="sports-container">
-          <!-- JS will populate sports blocks here -->
-        </div>
+/* SIDE PANELS — SMOKEY GLASS */
+.left-panel,
+.right-panel {
+  background: rgba(0,0,0,0.45);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px;
+  box-shadow: 0 0 40px rgba(0,0,0,0.85);
+  backdrop-filter: blur(22px);
+  padding: 20px;
+  overflow-y: auto;
+}
 
-      </div>
-    </aside>
+/* SPORTS */
+.sports-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
 
-    <!-- CENTER PANEL -->
-    <main class="center-panel">
+.sports-title {
+  font-family: "TT Livret Display", serif;
+  font-size: 0.92rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(230,230,230,0.95);
+}
 
-      <!-- EMBER TITLE -->
-      <div class="ember-title">EPPICLIFE</div>
+.sports-pill {
+  font-size: 0.7rem;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(10,132,255,0.12);
+  border: 1px solid rgba(10,132,255,0.5);
+  color: rgba(190,210,255,0.95);
+}
 
-      <!-- SEARCH -->
-      <div class="search-shell">
-        <form
-          class="search-bar-wrapper"
-          action="https://www.google.com/search"
-          method="GET"
-          target="_blank"
-        >
-          <div class="search-bar">
-            <div class="search-icon">🔍</div>
-            <input
-              class="search-input"
-              type="text"
-              name="q"
-              placeholder="Hunt down what you need..."
-              autocomplete="off"
-            />
-          </div>
+.sports-block {
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,255,255,0.04);
+  margin-bottom: 10px;
+  box-shadow: 0 0 16px rgba(0,0,0,0.8);
+}
 
-          <div class="search-engine-label">
-            EppicLife — Every Veteran Matters.
-          </div>
-        </form>
-      </div>
+.sports-block.live {
+  border-color: rgba(255,106,0,0.7);
+  box-shadow:
+    0 0 16px rgba(0,0,0,0.9),
+    0 0 18px rgba(255,106,0,0.7);
+}
 
-      <!-- FLEX SPACER TOP -->
-      <div class="center-spacer-top"></div>
+.sports-block.upcoming {
+  border-color: rgba(27,94,32,0.6);
+  box-shadow:
+    0 0 16px rgba(0,0,0,0.9),
+    0 0 18px rgba(27,94,32,0.5);
+}
 
-      <!-- TAGLINE -->
-      <div class="tagline-wrapper">
-        <div class="tagline-dash"></div>
-        <div class="tagline" id="tagline">
-          <!-- JS will insert rotating tagline -->
-        </div>
-      </div>
+.sports-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.82rem;
+}
 
-      <!-- BUTTON -->
-      <button class="onenote-button" id="onenote-button" type="button">
-        Eppic Journal
-      </button>
+.sports-team {
+  display: flex;
+  flex-direction: column;
+}
 
-      <!-- FLEX SPACER BOTTOM -->
-      <div class="center-spacer-bottom"></div>
+.sports-team-name {
+  font-weight: 500;
+}
 
-      <!-- POSTING COACH -->
-      <div class="posting-coach" id="posting-coach">
-        <div class="pc-title">TODAY’S POSTING SUGGESTION</div>
-        <div class="pc-message" id="pc-message">Loading...</div>
-        <div class="pc-timing" id="pc-timing"></div>
-      </div>
+.sports-sub {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
 
-    </main>
+.sports-score {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
 
-    <!-- RIGHT PANEL: WILDERNESS -->
-    <aside class="right-panel">
+/* CENTER PANEL */
+.center-panel {
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  overflow-y: auto;
+  align-items: center;
+}
 
-      <!-- DATE/TIME -->
-      <div class="datetime-block">
-        <div id="footer-day">—</div>
-        <div id="footer-date">—</div>
-        <div id="footer-time">—</div>
-      </div>
+/* EMBER TITLE */
+.ember-title {
+  font-family: "TT Livret Display", serif;
+  font-size: 2.2rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: linear-gradient(to top, #ff6a00, #ffb380, #ffffff);
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 12px rgba(255,106,0,0.55);
+  animation: emberFlicker 6s infinite ease-in-out;
+  opacity: 0;
+  animation: emberFadeIn 1.4s ease forwards, emberFlicker 6s infinite ease-in-out;
+}
 
-      <!-- FLEX SPACER TOP -->
-      <div class="weather-spacer-top"></div>
+@keyframes emberFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-      <!-- WEATHER -->
-      <div class="weather-block">
-        <h2 id="weather-title">Ellensburg<br>Weather</h2>
-        <div id="weather-content">
-          <p id="temp">Loading...</p>
-          <p id="conditions"></p>
-          <p id="wind"></p>
-          <p id="sun">Loading sunrise/sunset…</p>
-        </div>
-        <button id="switch-city-btn" class="switch-btn">Clearwater</button>
-      </div>
+@keyframes emberFlicker {
+  0%, 100% { text-shadow: 0 0 12px rgba(255,106,0,0.55); }
+  45% { text-shadow: 0 0 18px rgba(255,106,0,0.75); }
+  52% { text-shadow: 0 0 10px rgba(255,106,0,0.45); }
+  57% { text-shadow: 0 0 20px rgba(255,106,0,0.85); }
+  63% { text-shadow: 0 0 14px rgba(255,106,0,0.65); }
+}
 
-      <!-- FLEX SPACER BOTTOM -->
-      <div class="weather-spacer-bottom"></div>
+/* SEARCH */
+.search-shell {
+  text-align: center;
+  margin-top: 20px;
+}
 
-      <!-- BOTTOM STACK -->
-      <div class="bottom-stack">
+.search-bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-        <!-- DEER MOVEMENT -->
-        <div class="deer-movement">
-          <div class="section-title">
-            Deer <span>Movement</span>
-          </div>
+.search-bar {
+  display: flex;
+  align-items: center;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 10px 14px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 420px;
+  transition: box-shadow 0.25s ease;
+  backdrop-filter: blur(12px);
+}
 
-          <div class="deer-row">
-            <span class="deer-time">5:00 AM</span>
-            <span class="deer-quality deer-great">Great</span>
-          </div>
+.search-bar:hover,
+.search-bar:focus-within {
+  box-shadow:
+    0 0 8px rgba(255,106,0,0.6),
+    0 0 14px rgba(255,106,0,0.4),
+    0 0 20px rgba(255,106,0,0.3);
+}
 
-          <div class="deer-row">
-            <span class="deer-time">2:00 PM</span>
-            <span class="deer-quality deer-good">Good</span>
-          </div>
-        </div>
+.search-icon {
+  margin-right: 10px;
+  font-size: 1.1rem;
+  opacity: 0.85;
+}
 
-        <!-- MOON PHASE -->
-        <div class="moon-section">
-          <div class="moon-pill">
-            <img id="moon-icon-footer" class="moon-icon-img" src="" alt="Moon phase">
-            <span id="moon-phase-footer">Moon phase loading…</span>
-          </div>
-        </div>
+.search-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--text-main);
+  width: 100%;
+  font-size: 1rem;
+}
 
-      </div> <!-- END bottom-stack -->
+.search-engine-label {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
 
-    </aside>
+/* FLEX SPACERS */
+.center-spacer-top,
+.center-spacer-bottom {
+  flex-grow: 1;
+}
 
-    <!-- FOOTER -->
-    <footer class="footer">
-      <div class="footer-quote" id="footer-quote">
-        “There are some who can live without wild things and some who cannot.” — Aldo Leopold
-      </div>
-    </footer>
+/* TAGLINE */
+.tagline-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  opacity: 0;
+  animation: taglineFadeIn 1.4s ease forwards;
+}
 
-  </div>
+@keyframes taglineFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-  <!-- SCRIPT -->
-  <script src="script.js"></script>
-</body>
-</html>
+.tagline-dash {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-orange), transparent);
+  opacity: 0.9;
+}
+
+.tagline {
+  text-align: center;
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* BUTTON */
+.onenote-button {
+  margin: 20px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 22px;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  color: var(--text-main);
+  backdrop-filter: blur(12px);
+  transition: box-shadow 0.25s ease, transform 0.2s ease;
+}
+
+.onenote-button:hover {
+  box-shadow:
+    0 0 10px rgba(255,106,0,0.7),
+    0 0 18px rgba(255,106,0,0.5);
+  transform: translateY(-2px);
+}
+
+/* POSTING COACH */
+.posting-coach {
+  margin-top: 20px;
+  padding: 16px;
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.pc-title {
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.pc-message {
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+
+.pc-timing {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* WEATHER */
+.weather-block {
+  min-height: 120px;
+  text-align: center;
+}
+
+#weather-title {
+  color: var(--accent-orange);
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+#weather-content p {
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+}
+
+/* MOON */
+.moon-icon-img {
+  width: 26px;
+  height: 26px;
+  filter: drop-shadow(0 0 6px rgba(255,106,0,0.6));
+}
+
+/* FOOTER */
+.footer {
+  grid-column: 1 / 4;
+  height: 60px;
+  background: rgba(0,0,0,0.7);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-quote {
+  text-align: center;
+  font-size: 0.9rem;
+  max-width: 80%;
+  color: var(--text-muted);
+  position: relative;
+  padding-bottom: 1.2em;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.25);
+}
+
+.footer-quote::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 90px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-orange), transparent);
+  opacity: 0.8;
+}
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  .page {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto;
+  }
+
+  .left-panel,
+  .center-panel,
+  .right-panel {
+    height: auto;
+    overflow-y: visible;
+  }
+
+  .footer {
+    position: relative;
+  }
+}
+
+/* SWITCH BUTTON */
+.switch-btn {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background: rgba(0,0,0,0.6);
+  color: var(--accent-orange);
+  border: 1px solid var(--accent-orange);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background 0.2s ease;
+}
+
+.switch-btn:hover {
+  background: rgba(255,106,0,0.1);
+}
