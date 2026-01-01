@@ -286,7 +286,8 @@ body {
 
 /* WEATHER */
 .weather-block {
-  margin-bottom: 20px;
+  margin-top: auto;      /* pushes it downward */
+  margin-bottom: 20px;   /* keeps spacing above deer */
   text-align: center;
 }
 
