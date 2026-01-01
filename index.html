@@ -1,1 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>EppicLife Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <!-- Full-screen background for rotating sports images -->
+    <div id="background"></div>
+
+    <!-- Main app container (three panels on top of background) -->
+    <div id="app">
+        <!-- LEFT PANEL: SPORTS -->
+        <div id="left-panel" class="panel panel-left">
+            <div class="panel-header panel-header-sports">
+                <span class="panel-header-dot"></span>
+                <span>SPORTS</span>
+            </div>
+
+            <div id="sports-live-section" class="sports-section">
+                <div class="sports-section-title">Live Now</div>
+                <div id="sports-live-list" class="sports-list"></div>
+            </div>
+
+            <div id="sports-scores-section" class="sports-section">
+                <div class="sports-section-title">Scores</div>
+                <div id="sports-scores-list" class="sports-list"></div>
+            </div>
+
+            <div id="sports-headlines-section" class="sports-section">
+                <div class="sports-section-title">Headlines</div>
+                <div id="sports-headlines-list" class="sports-list"></div>
+            </div>
+
+            <div id="sports-highlights-section" class="sports-section">
+                <div class="sports-section-title">Highlights</div>
+                <div id="sports-highlights-list" class="sports-list"></div>
+            </div>
+
+            <div id="sports-summary-section" class="sports-section">
+                <div class="sports-section-title">Today</div>
+                <div id="sports-summary" class="sports-summary-text"></div>
+            </div>
+
+            <div id="sports-favorites-section" class="sports-section">
+                <div class="sports-section-title">Favorites</div>
+                <div id="sports-favorites-list" class="sports-list"></div>
+            </div>
+        </div>
+
+        <!-- CENTER PANEL: IDENTITY + SEARCH + COACH -->
+        <div id="center-panel" class="panel panel-center">
+            <!-- Identity block -->
+            <div id="identity-block">
+                <div id="tagline-rotator">
+                    <span id="tagline-text">Hunting Today’s Story, One Play At A Time</span>
+                </div>
+                <div id="identity-dash"></div>
+                <a id="journal-button" href="#" target="_blank">
+                    <span class="button-dot"></span>
+                    <span>EPPICLIFE JOURNAL</span>
+                </a>
+            </div>
+
+            <!-- Search block -->
+            <div id="search-block">
+                <input
+                    id="global-search"
+                    type="text"
+                    placeholder="Search plays, posts, games, or moments..."
+                />
+            </div>
+
+            <!-- Main center content placeholder -->
+            <div id="center-main-content">
+                <!-- This is where future modules / cards can live -->
+            </div>
+
+            <!-- Posting Coach Panel (always at bottom of center panel) -->
+            <div id="posting-coach-panel">
+                <div class="panel-header panel-header-coach">
+                    <span class="panel-header-dot"></span>
+                    <span>POSTING COACH</span>
+                </div>
+                <div id="coach-body">
+                    <p class="coach-prompt">
+                        What happened in your world today that’s worth one clean, Eppic paragraph?
+                    </p>
+                    <button id="coach-idea-button" class="coach-button">
+                        Give me a post idea
+                    </button>
+                    <button id="coach-journal-button" class="coach-button">
+                        Open EppicLife Journal
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT PANEL: WILDERNESS / ENVIRONMENT -->
+        <div id="right-panel" class="panel panel-right">
+            <div class="panel-header panel-header-env">
+                <span class="panel-header-dot"></span>
+                <span>ENVIRONMENT</span>
+            </div>
+
+            <div id="datetime-block" class="env-block">
+                <div id="date-text"></div>
+                <div id="time-text"></div>
+            </div>
+
+            <div id="weather-block" class="env-block env-block-middle">
+                <div class="env-block-title">Weather</div>
+                <div id="weather-main"></div>
+                <div id="weather-extra"></div>
+            </div>
+
+            <div id="moon-block" class="env-block">
+                <div class="env-block-title">Moon Phase</div>
+                <div id="moon-text"></div>
+            </div>
+
+            <div id="deer-block" class="env-block">
+                <div class="env-block-title">Deer Movement</div>
+                <div id="deer-text"></div>
+            </div>
+
+            <div id="season-block" class="env-block">
+                <div class="env-block-title">Season Signal</div>
+                <div id="season-text"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
 
