@@ -267,20 +267,20 @@ body {
   overflow-y: auto;
 }
 
+/* This is the only flex column that matters */
 .wilderness-panel {
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
+  height: 100%;
 }
 
-/* SPACER */
+/* SPACER between time and weather */
 .weather-spacer {
   flex-grow: 1;
 }
 
-/* BOTTOM STACK */
+/* BOTTOM STACK (deer + moon at bottom) */
 .bottom-stack {
-  margin-top: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
