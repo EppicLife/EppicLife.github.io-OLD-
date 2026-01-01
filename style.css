@@ -262,6 +262,13 @@ body {
   flex-direction: column;
   height: 100%;
 }
+.bottom-stack {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 
 .right-panel {
   background: radial-gradient(circle at top, rgba(10, 132, 55, 0.08), transparent 60%), rgba(0, 20, 0, 0.5);
@@ -313,8 +320,6 @@ body {
 
 /* DEER */
 .deer-movement {
-  margin-top: auto;
-  margin-bottom: 10px;
   text-align: center;
 }
 
@@ -352,7 +357,6 @@ body {
 
 /* MOON */
 .moon-section {
-  margin-top: auto;
   padding-top: 20px;
   text-align: center;
 }
