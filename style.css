@@ -375,6 +375,19 @@ body {
   font-size: 0.9rem;
   max-width: 80%;
   color: var(--text-muted);
+  position: relative;
+  padding-bottom: 1.2em;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.25);
+}
+.footer-quote::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 90px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-orange), transparent);
+  opacity: 0.8;
 }
 
 /* RESPONSIVE */
