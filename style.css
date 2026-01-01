@@ -261,6 +261,9 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
+  .weather-spacer {
+  flex-grow: 1;
+}
 }
 .bottom-stack {
   margin-top: auto;
