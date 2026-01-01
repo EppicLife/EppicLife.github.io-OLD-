@@ -3,6 +3,7 @@
   --text-main: rgba(240,240,240,0.95);
   --text-muted: rgba(200,200,200,0.65);
   --accent-orange: #ff6a00;
+  --font-display: "TT Livret Display", serif;
 }
 
 /* GLOBAL RESET */
@@ -13,7 +14,7 @@
 }
 
 body {
-  font-family: "Inter", sans-serif;
+  font-family: var(--font-display);
   color: var(--text-main);
   background: #000;
   overflow: hidden;
@@ -32,11 +33,7 @@ body {
 .background-overlay {
   position: fixed;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,0.4),
-    rgba(0,0,0,0.85)
-  );
+  background: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.85));
   z-index: -1;
 }
 
@@ -61,80 +58,6 @@ body {
   overflow-y: auto;
 }
 
-/* SPORTS */
-.sports-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-}
-
-.sports-title {
-  font-family: "TT Livret Display", serif;
-  font-size: 0.92rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(230,230,230,0.95);
-}
-
-.sports-pill {
-  font-size: 0.7rem;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: rgba(10,132,255,0.12);
-  border: 1px solid rgba(10,132,255,0.5);
-  color: rgba(190,210,255,0.95);
-}
-
-.sports-block {
-  padding: 10px;
-  border-radius: 12px;
-  background: rgba(0,0,0,0.5);
-  border: 1px solid rgba(255,255,255,0.04);
-  margin-bottom: 10px;
-  box-shadow: 0 0 16px rgba(0,0,0,0.8);
-}
-
-.sports-block.live {
-  border-color: rgba(255,106,0,0.7);
-  box-shadow:
-    0 0 16px rgba(0,0,0,0.9),
-    0 0 18px rgba(255,106,0,0.7);
-}
-
-.sports-block.upcoming {
-  border-color: rgba(27,94,32,0.6);
-  box-shadow:
-    0 0 16px rgba(0,0,0,0.9),
-    0 0 18px rgba(27,94,32,0.5);
-}
-
-.sports-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 0.82rem;
-}
-
-.sports-team {
-  display: flex;
-  flex-direction: column;
-}
-
-.sports-team-name {
-  font-weight: 500;
-}
-
-.sports-sub {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-}
-
-.sports-score {
-  font-size: 0.95rem;
-  font-weight: 600;
-}
-
 /* CENTER PANEL */
 .center-panel {
   display: flex;
@@ -146,7 +69,7 @@ body {
 
 /* EMBER TITLE */
 .ember-title {
-  font-family: "TT Livret Display", serif;
+  font-family: var(--font-display);
   font-size: 2.2rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
@@ -154,9 +77,8 @@ body {
   -webkit-background-clip: text;
   color: transparent;
   text-shadow: 0 0 12px rgba(255,106,0,0.55);
-  animation: emberFlicker 6s infinite ease-in-out;
-  opacity: 0;
   animation: emberFadeIn 1.4s ease forwards, emberFlicker 6s infinite ease-in-out;
+  opacity: 0;
 }
 
 @keyframes emberFadeIn {
@@ -172,10 +94,21 @@ body {
   63% { text-shadow: 0 0 14px rgba(255,106,0,0.65); }
 }
 
-/* SEARCH */
+/* ORANGE DASH UNDER TITLE */
+.tagline-dash {
+  width: 90px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-orange), transparent);
+  opacity: 0.9;
+  margin-top: 12px;
+  margin-bottom: 20px;
+}
+
+/* END CHUNK A */
+/* SEARCH BAR */
 .search-shell {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .search-bar-wrapper {
@@ -184,33 +117,38 @@ body {
   align-items: center;
 }
 
+/* MATCHING THE OLD IMAGE EXACTLY */
 .search-bar {
   display: flex;
   align-items: center;
   background: rgba(0,0,0,0.55);
-  border: 1px solid rgba(255,255,255,0.08);
-  padding: 10px 14px;
-  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: 14px 18px;
+  border-radius: 14px;
   width: 100%;
   max-width: 420px;
-  transition: box-shadow 0.25s ease;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+  box-shadow: 0 0 8px rgba(255,106,0,0.25);
 }
 
 .search-bar:hover,
 .search-bar:focus-within {
+  border-color: rgba(255,106,0,0.6);
   box-shadow:
-    0 0 8px rgba(255,106,0,0.6),
-    0 0 14px rgba(255,106,0,0.4),
-    0 0 20px rgba(255,106,0,0.3);
+    0 0 10px rgba(255,106,0,0.6),
+    0 0 18px rgba(255,106,0,0.4);
 }
 
+/* MAGNIFYING GLASS — MATCH OLD STYLE */
 .search-icon {
-  margin-right: 10px;
-  font-size: 1.1rem;
-  opacity: 0.85;
+  margin-right: 12px;
+  font-size: 1.2rem;
+  opacity: 0.9;
+  filter: drop-shadow(0 0 4px rgba(255,106,0,0.4));
 }
 
+/* INPUT FIELD */
 .search-input {
   background: transparent;
   border: none;
@@ -218,21 +156,21 @@ body {
   color: var(--text-main);
   width: 100%;
   font-size: 1rem;
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
 }
 
+/* LABEL UNDER SEARCH BAR */
 .search-engine-label {
-  margin-top: 8px;
-  font-size: 0.8rem;
+  margin-top: 10px;
+  font-size: 0.85rem;
   color: var(--text-muted);
+  font-family: var(--font-display);
+  letter-spacing: 0.03em;
 }
 
-/* FLEX SPACERS */
-.center-spacer-top,
-.center-spacer-bottom {
-  flex-grow: 1;
-}
-
-/* TAGLINE */
+/* END CHUNK B */
+/* TAGLINE WRAPPER + TEXT */
 .tagline-wrapper {
   display: flex;
   flex-direction: column;
@@ -240,6 +178,7 @@ body {
   gap: 6px;
   opacity: 0;
   animation: taglineFadeIn 1.4s ease forwards;
+  margin-top: 10px; /* keeps it under the orange dash */
 }
 
 @keyframes taglineFadeIn {
@@ -247,160 +186,12 @@ body {
   to { opacity: 1; }
 }
 
-.tagline-dash {
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(90deg, var(--accent-orange), transparent);
-  opacity: 0.9;
-}
-
 .tagline {
   text-align: center;
   font-size: 1.2rem;
   opacity: 0.9;
+  font-family: var(--font-display);
+  letter-spacing: 0.02em;
+  padding: 0 20px;
 }
-
-/* BUTTON */
-.onenote-button {
-  margin: 20px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 22px;
-  background: rgba(0,0,0,0.55);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 1rem;
-  color: var(--text-main);
-  backdrop-filter: blur(12px);
-  transition: box-shadow 0.25s ease, transform 0.2s ease;
-}
-
-.onenote-button:hover {
-  box-shadow:
-    0 0 10px rgba(255,106,0,0.7),
-    0 0 18px rgba(255,106,0,0.5);
-  transform: translateY(-2px);
-}
-
-/* POSTING COACH */
-.posting-coach {
-  margin-top: 20px;
-  padding: 16px;
-  background: rgba(0,0,0,0.55);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px;
-  text-align: center;
-}
-
-.pc-title {
-  font-size: 0.85rem;
-  margin-bottom: 8px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.pc-message {
-  font-size: 0.9rem;
-  margin-bottom: 6px;
-}
-
-.pc-timing {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-/* WEATHER */
-.weather-block {
-  min-height: 120px;
-  text-align: center;
-}
-
-#weather-title {
-  color: var(--accent-orange);
-  font-size: 1.1rem;
-  margin-bottom: 12px;
-  text-align: center;
-}
-
-#weather-content p {
-  margin-bottom: 6px;
-  font-size: 0.95rem;
-}
-
-/* MOON */
-.moon-icon-img {
-  width: 26px;
-  height: 26px;
-  filter: drop-shadow(0 0 6px rgba(255,106,0,0.6));
-}
-
-/* FOOTER */
-.footer {
-  grid-column: 1 / 4;
-  height: 60px;
-  background: rgba(0,0,0,0.7);
-  border-top: 1px solid rgba(255,255,255,0.08);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.footer-quote {
-  text-align: center;
-  font-size: 0.9rem;
-  max-width: 80%;
-  color: var(--text-muted);
-  position: relative;
-  padding-bottom: 1.2em;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.25);
-}
-
-.footer-quote::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -3px;
-  width: 90px;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent-orange), transparent);
-  opacity: 0.8;
-}
-
-/* RESPONSIVE */
-@media (max-width: 960px) {
-  .page {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto auto auto;
-  }
-
-  .left-panel,
-  .center-panel,
-  .right-panel {
-    height: auto;
-    overflow-y: visible;
-  }
-
-  .footer {
-    position: relative;
-  }
-}
-
-/* SWITCH BUTTON */
-.switch-btn {
-  margin-top: 12px;
-  padding: 8px 16px;
-  background: rgba(0,0,0,0.6);
-  color: var(--accent-orange);
-  border: 1px solid var(--accent-orange);
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background 0.2s ease;
-}
-
-.switch-btn:hover {
-  background: rgba(255,106,0,0.1);
-}
+/* END CHUNK C */
