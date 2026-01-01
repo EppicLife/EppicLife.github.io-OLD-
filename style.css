@@ -261,7 +261,6 @@ body {
   display: flex;
   flex-direction: column;
   height: 100%;
-  position: relative;
 }
 
 .right-panel {
@@ -313,10 +312,8 @@ body {
 
 /* DEER */
 .deer-movement {
-  position: absolute;
-  bottom: 60px; /* 10px above moon-section */
-  left: 0;
-  width: 100%;
+  margin-top: auto;
+  margin-bottom: 10px;
   text-align: center;
 }
 
