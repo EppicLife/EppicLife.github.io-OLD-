@@ -312,9 +312,9 @@ body {
 
 /* DEER */
 .deer-movement {
-  margin-top: auto;      /* pushes it down */
-  margin-bottom: 10px;   /* sits 10px above the moon */
-  text-align: center;    /* centers the header */
+  position: relative;
+  bottom: 10px;
+  text-align: center;
 }
 
 .section-title {
