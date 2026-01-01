@@ -293,7 +293,6 @@ body {
 
 /* WEATHER */
 .weather-block {
-  margin-top: auto;      /* pushes it downward */
   margin-bottom: 20px;   /* keeps spacing above deer */
   text-align: center;
 }
