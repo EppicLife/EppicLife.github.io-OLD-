@@ -79,7 +79,6 @@
         <div class="pc-message" id="pc-message">Loading...</div>
         <div class="pc-timing" id="pc-timing"></div>
       </div>
-
     </main>
 
     <!-- RIGHT PANEL: WILDERNESS -->
@@ -93,6 +92,7 @@
           <div id="footer-time">—</div>
         </div>
 
+        <!-- SPACER BETWEEN TIME AND WEATHER -->
         <div class="weather-spacer"></div>
 
         <!-- WEATHER -->
@@ -107,42 +107,38 @@
           <button id="switch-city-btn" class="switch-btn">Clearwater</button>
         </div>
 
-        <!-- DEER MOVEMENT -->
-    <!-- BOTTOM STACK -->
-<div class="bottom-stack">
-</div>
+        <!-- BOTTOM STACK: DEER + MOON -->
+        <div class="bottom-stack">
 
-       <!-- DEER MOVEMENT -->
-    <!-- BOTTOM STACK -->
-<div class="bottom-stack">
-</div>
+          <!-- DEER MOVEMENT -->
+          <div class="deer-movement">
+            <div class="section-title">
+              Deer <span>Movement</span>
+            </div>
 
-  <!-- DEER MOVEMENT -->
-  <div class="deer-movement">
-    <div class="section-title">
-      Deer <span>Movement</span>
-    </div>
+            <div class="deer-row">
+              <span class="deer-time">5:00 AM</span>
+              <span class="deer-quality deer-great">Great</span>
+            </div>
 
-    <div class="deer-row">
-      <span class="deer-time">5:00 AM</span>
-      <span class="deer-quality deer-great">Great</span>
-    </div>
+            <div class="deer-row">
+              <span class="deer-time">2:00 PM</span>
+              <span class="deer-quality deer-good">Good</span>
+            </div>
+          </div>
 
-    <div class="deer-row">
-      <span class="deer-time">2:00 PM</span>
-      <span class="deer-quality deer-good">Good</span>
-    </div>
-  </div>
+          <!-- MOON PHASE -->
+          <div class="moon-section">
+            <div class="moon-pill">
+              <span class="moon-icon" id="moon-icon-footer">○</span>
+              <span id="moon-phase-footer">Moon phase loading…</span>
+            </div>
+          </div>
 
-  <!-- MOON PHASE -->
-  <div class="moon-section">
-    <div class="moon-pill">
-      <span class="moon-icon" id="moon-icon-footer">○</span>
-      <span id="moon-phase-footer">Moon phase loading…</span>
-    </div>
-  </div>
- </div>
-</aside>
+        </div> <!-- END bottom-stack -->
+
+      </div> <!-- END wilderness-panel -->
+    </aside>
 
     <!-- FOOTER -->
     <footer class="footer">
@@ -157,6 +153,7 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
 
 
