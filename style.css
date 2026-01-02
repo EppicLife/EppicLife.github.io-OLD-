@@ -92,6 +92,7 @@ body {
     color: #ff7a1a;
     border-top: 1px solid rgba(255, 122, 26, 0.35);
     border-bottom: none;
+    justify-content: center; /* center POSTING COACH header + dot */
 }
 
 .panel-header-env {
@@ -225,6 +226,7 @@ body {
     height: 2px;
     border-radius: 999px;
     background: linear-gradient(to right, #ff7a1a, transparent);
+    margin: 0.5rem auto 0.2rem auto; /* center the dash */
 }
 
 /* OneNote / Journal button */
@@ -232,7 +234,6 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    align-self: flex-start;
     padding: 0.5rem 0.95rem;
     border-radius: 999px;
     border: 1px solid rgba(255, 122, 26, 0.75);
@@ -250,6 +251,13 @@ body {
     background: radial-gradient(circle at top left, rgba(255, 122, 26, 0.22), rgba(7, 7, 10, 0.96));
     box-shadow: 0 0 20px rgba(255, 122, 26, 0.7);
     transform: translateY(-1px);
+}
+
+/* Wrapped journal button container in Posting Coach */
+#journal-button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.6rem; /* spacing below coach button */
 }
 
 /* Button dot (reuses panel-header-dot styles) */
@@ -289,6 +297,8 @@ body {
     margin-top: auto;
     border-top: 1px solid rgba(255, 255, 255, 0.06);
     background: radial-gradient(circle farthest-corner at bottom, rgba(7, 7, 12, 0.96), rgba(4, 4, 7, 0.95));
+    text-align: center;           /* center all inner text by default */
+    padding-bottom: 1.1rem;       /* breathing room under journal button */
 }
 
 #coach-body {
@@ -296,15 +306,17 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.55rem;
+    align-items: center;          /* center prompt + button in the column */
 }
 
 .coach-prompt {
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.85);
+    text-align: center;           /* center the question line */
 }
 
 .coach-button {
-    align-self: flex-start;
+    align-self: center;           /* center the button instead of flex-start */
     padding: 0.4rem 0.85rem;
     border-radius: 999px;
     border: 1px solid rgba(255, 122, 26, 0.7);
