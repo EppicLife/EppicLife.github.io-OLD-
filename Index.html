@@ -1,1 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>EppicLife Helm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Fonts: replace with your TT Commons include when ready -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="helm-root">
+    <!-- ================= HEADER ================= -->
+    <header id="helm-header">
+      <h1 id="helm-title">EPPICLIFE</h1>
+    </header>
+
+    <!-- ============ BACKGROUND LAYER ============ -->
+    <div id="helm-background-layer">
+      <!--
+        Replace this URL with your football field or any sports image.
+        This is just a placeholder for the bones.
+      -->
+      <div id="helm-background-image"></div>
+      <div id="helm-background-overlay"></div>
+    </div>
+
+    <!-- ============== MAIN LAYOUT ============== -->
+    <main id="helm-main">
+      <!-- ========== LEFT PANEL: SPORTS ========== -->
+      <section id="panel-sports" class="helm-panel helm-panel-left">
+        <!-- Ember collapse button (left panel) -->
+        <button class="ember-toggle ember-left-toggle" aria-label="Toggle sports panel"></button>
+
+        <div class="helm-panel-inner">
+          <header class="helm-panel-header">
+            <h2 class="panel-title">SPORTS</h2>
+          </header>
+
+          <div class="panel-content">
+
+            <!-- LIVE NOW -->
+            <section class="panel-block scroll-block">
+              <h3 class="block-title">LIVE NOW</h3>
+              <div class="block-body">
+                <article class="sports-item live-item">
+                  <div class="sports-matchup">
+                    <span class="team">Houston Astros</span>
+                    <span class="vs">@</span>
+                    <span class="team">Seattle Mariners</span>
+                  </div>
+                  <div class="sports-meta">MLB · LIVE · Top 6th</div>
+                  <div class="sports-score">3 – 2</div>
+                </article>
+              </div>
+            </section>
+
+            <!-- SCORES -->
+            <section class="panel-block scroll-block">
+              <h3 class="block-title">SCORES</h3>
+              <div class="block-body">
+                <article class="sports-item">
+                  <div class="sports-matchup">
+                    <span class="team">Big Fight Opponent</span>
+                    <span class="vs">@</span>
+                    <span class="team">Anthony Joshua</span>
+                  </div>
+                  <div class="sports-meta">BOXING · NEXT · MAIN EVENT</div>
+                </article>
+
+                <article class="sports-item live-item">
+                  <div class="sports-matchup">
+                    <span class="team">Munster</span>
+                    <span class="vs">@</span>
+                    <span class="team">Leinster</span>
+                  </div>
+                  <div class="sports-meta">RUGBY · LIVE · 2nd Half</div>
+                  <div class="sports-score">19 – 13</div>
+                </article>
+              </div>
+            </section>
+
+            <!-- HEADLINES -->
+            <section class="panel-block scroll-block">
+              <h3 class="block-title">HEADLINES</h3>
+              <div class="block-body">
+                <article class="headline-item">
+                  <h4 class="headline-title">Mariners walk it off in extra innings</h4>
+                  <div class="headline-meta">MLB · Today</div>
+                </article>
+
+                <article class="headline-item">
+                  <h4 class="headline-title">Seahawks finalize depth chart ahead of opener</h4>
+                  <div class="headline-meta">NFL · This week</div>
+                </article>
+              </div>
+            </section>
+
+            <!-- HIGHLIGHTS -->
+            <section class="panel-block scroll-block">
+              <h3 class="block-title">HIGHLIGHTS</h3>
+              <div class="block-body">
+                <article class="highlight-item">
+                  <h4 class="highlight-title">Walk-off home run in Seattle</h4>
+                  <div class="highlight-meta">MLB · Mariners</div>
+                </article>
+
+                <article class="highlight-item">
+                  <h4 class="highlight-title">Last-second field goal thriller</h4>
+                  <div class="highlight-meta">NFL · General</div>
+                </article>
+              </div>
+            </section>
+
+            <!-- TODAY SNAPSHOT -->
+            <section class="panel-block">
+              <h3 class="block-title">TODAY</h3>
+              <div class="block-body">
+                <p class="panel-text">
+                  Today's sports snapshot: favorites first, big moments surfaced,
+                  and live games one click away.
+                </p>
+              </div>
+            </section>
+
+            <!-- FAVORITES -->
+            <section class="panel-block scroll-block">
+              <h3 class="block-title">FAVORITES</h3>
+              <div class="block-body">
+                <article class="favorite-team">
+                  <div class="favorite-name">Seattle Mariners</div>
+                  <div class="favorite-meta">MLB</div>
+                </article>
+                <article class="favorite-team">
+                  <div class="favorite-name">Atlanta Braves</div>
+                  <div class="favorite-meta">MLB</div>
+                </article>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- ======== CENTER PANEL: COMMAND ======== -->
+      <section id="panel-center" class="helm-panel helm-panel-center">
+        <div class="helm-panel-inner">
+
+          <!-- Tagline + dash -->
+          <header class="helm-panel-header center-header">
+            <div id="tagline-wrapper">
+              <p id="tagline-text">HUNTING TODAY'S STORY, ONE PLAY AT A TIME</p>
+              <div id="tagline-dash"></div>
+            </div>
+          </header>
+
+          <div class="panel-content center-content">
+            <!-- JOURNAL CTA -->
+            <section class="panel-block">
+              <h3 class="block-title">EPICLIFE JOURNAL</h3>
+              <div class="block-body">
+                <button id="btn-open-journal" class="ember-button">
+                  EPICLIFE JOURNAL
+                </button>
+              </div>
+            </section>
+
+            <!-- SEARCH -->
+            <section class="panel-block">
+              <h3 class="block-title">SEARCH</h3>
+              <div class="block-body">
+                <div class="search-wrapper">
+                  <input
+                    type="text"
+                    id="helm-search"
+                    placeholder="Search plays, posts, games, or moments..."
+                  />
+                </div>
+              </div>
+            </section>
+
+            <!-- POSTING COACH -->
+            <section id="posting-coach" class="panel-block posting-coach-block">
+              <h3 class="block-title">POSTING COACH</h3>
+              <div class="block-body">
+                <p class="panel-text">
+                  What happened in your world today that's worth one clean, Eppic paragraph?
+                </p>
+                <div class="coach-actions">
+                  <button id="btn-post-idea" class="ember-button">
+                    GIVE ME A POST IDEA
+                  </button>
+                  <button id="btn-open-journal-2" class="ember-button secondary">
+                    OPEN EPPICLIFE JOURNAL
+                  </button>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======== RIGHT PANEL: ENVIRONMENT ======== -->
+      <section id="panel-environment" class="helm-panel helm-panel-right">
+        <!-- Ember collapse button (right panel) -->
+        <button class="ember-toggle ember-right-toggle" aria-label="Toggle environment panel"></button>
+
+        <div class="helm-panel-inner">
+          <header class="helm-panel-header">
+            <h2 class="panel-title">ENVIRONMENT</h2>
+          </header>
+
+          <div class="panel-content">
+
+            <!-- DATE / TIME -->
+            <section class="panel-block">
+              <h3 class="block-title">NOW</h3>
+              <div class="block-body">
+                <p id="env-datetime">
+                  THU, JAN 1, 2026 · 9:34 PM
+                </p>
+              </div>
+            </section>
+
+            <!-- WEATHER -->
+            <section class="panel-block scroll-block">
+              <h3 class="block-title">WEATHER</h3>
+              <div class="block-body">
+                <p id="env-weather-status">Weather loading...</p>
+                <p id="env-weather-meta">High / Low · Wind · Feels like</p>
+              </div>
+            </section>
+
+            <!-- MOON PHASE -->
+            <section class="panel-block scroll-block">
+              <h3 class="block-title">MOON PHASE</h3>
+              <div class="block-body">
+                <p id="env-moon">Moon phase data will appear here.</p>
+              </div>
+            </section>
+
+            <!-- DEER MOVEMENT -->
+            <section class="panel-block scroll-block">
+              <h3 class="block-title">DEER MOVEMENT</h3>
+              <div class="block-body">
+                <p id="env-deer">Deer movement prediction will appear here.</p>
+              </div>
+            </section>
+
+            <!-- SEASON SIGNAL -->
+            <section class="panel-block scroll-block">
+              <h3 class="block-title">SEASON SIGNAL</h3>
+              <div class="block-body">
+                <p id="env-season">Season signal will appear here.</p>
+              </div>
+            </section>
+
+            <!-- QUICK LINKS -->
+            <section class="panel-block scroll-block">
+              <h3 class="block-title">QUICK LINKS</h3>
+              <div class="block-body quick-links">
+                <a href="#" class="quick-link">Email</a>
+                <a href="#" class="quick-link">Twitch</a>
+                <a href="#" class="quick-link">Social</a>
+                <a href="#" class="quick-link">Podcasts</a>
+              </div>
+            </section>
+
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer id="helm-footer">
+      <div id="footer-quote-wrapper">
+        <p id="footer-quote-text">
+          We do not live to think, but, on the contrary, we think in order that we may succeed in surviving.
+        </p>
+        <span id="footer-quote-author">— José Ortega y Gasset</span>
+        <div id="footer-comet-underline"></div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
