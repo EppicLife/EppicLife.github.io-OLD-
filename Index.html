@@ -5,11 +5,13 @@
   <title>EppicLife Helm</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Fonts: replace with your TT Commons include when ready -->
+  <!-- Fonts (TT Commons will be added in CSS) -->
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <div id="helm-root">
+
     <!-- ================= HEADER ================= -->
     <header id="helm-header">
       <h1 id="helm-title">EPPICLIFE</h1>
@@ -17,19 +19,17 @@
 
     <!-- ============ BACKGROUND LAYER ============ -->
     <div id="helm-background-layer">
-      <!--
-        Replace this URL with your football field or any sports image.
-        This is just a placeholder for the bones.
-      -->
       <div id="helm-background-image"></div>
       <div id="helm-background-overlay"></div>
     </div>
 
     <!-- ============== MAIN LAYOUT ============== -->
     <main id="helm-main">
+
       <!-- ========== LEFT PANEL: SPORTS ========== -->
       <section id="panel-sports" class="helm-panel helm-panel-left">
-        <!-- Ember collapse button (left panel) -->
+
+        <!-- Ember collapse button -->
         <button class="ember-toggle ember-left-toggle" aria-label="Toggle sports panel"></button>
 
         <div class="helm-panel-inner">
@@ -131,6 +131,7 @@
                   <div class="favorite-name">Seattle Mariners</div>
                   <div class="favorite-meta">MLB</div>
                 </article>
+
                 <article class="favorite-team">
                   <div class="favorite-name">Atlanta Braves</div>
                   <div class="favorite-meta">MLB</div>
@@ -155,6 +156,7 @@
           </header>
 
           <div class="panel-content center-content">
+
             <!-- JOURNAL CTA -->
             <section class="panel-block">
               <h3 class="block-title">EPICLIFE JOURNAL</h3>
@@ -196,13 +198,15 @@
                 </div>
               </div>
             </section>
+
           </div>
         </div>
       </section>
 
       <!-- ======== RIGHT PANEL: ENVIRONMENT ======== -->
       <section id="panel-environment" class="helm-panel helm-panel-right">
-        <!-- Ember collapse button (right panel) -->
+
+        <!-- Ember collapse button -->
         <button class="ember-toggle ember-right-toggle" aria-label="Toggle environment panel"></button>
 
         <div class="helm-panel-inner">
@@ -216,9 +220,7 @@
             <section class="panel-block">
               <h3 class="block-title">NOW</h3>
               <div class="block-body">
-                <p id="env-datetime">
-                  THU, JAN 1, 2026 · 9:34 PM
-                </p>
+                <p id="env-datetime">THU, JAN 1, 2026 · 9:34 PM</p>
               </div>
             </section>
 
@@ -269,6 +271,7 @@
           </div>
         </div>
       </section>
+
     </main>
 
     <!-- ================= FOOTER ================= -->
@@ -281,6 +284,7 @@
         <div id="footer-comet-underline"></div>
       </div>
     </footer>
+
   </div>
 
   <script src="main.js"></script>
